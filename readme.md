@@ -1,4 +1,8 @@
-# ① git clone
+# FLEA-MAEKET
+
+## 環境構築
+
+### ① git clone
 
 github よりソースを取得する
 
@@ -15,7 +19,7 @@ cd laravel-template
 laravel のプロジェクト名に、フォルダ名を変換する
 （例 laravel-template → laravel-basic 等）
 
-# ② docker compose
+### ② docker compose
 
 `先ほど変更したフォルダ名がVSCodeのトップになっていることを必ず確認すること`  
 [![Image from Gyazo](https://i.gyazo.com/6de13ed9f6ab4f0fdc4d5a0b83c4f514.png)](https://gyazo.com/6de13ed9f6ab4f0fdc4d5a0b83c4f514)
@@ -48,8 +52,11 @@ Project directory "/var/www/." is not empty.
 というエラーが出たら、srcフォルダの中の .gitkeep は削除して、再度実行してください。  
 ```
 
+#### Your requirements could not be resolved to an installable set of packages.　で弾かれた場合、下記のコードでblock-insecure を無効にして、再度ダウンロードする
+`composer config --global audit.block-insecure false`
 
-# ③ laravel の環境を修正
+
+### ③ laravel の環境を修正
 
 #### `config/app.php` の timezone を修正
 
@@ -75,7 +82,7 @@ npm install
 npm run build
 ```
 
-# ④ laravel のテスト環境を作成
+### ④ laravel のテスト環境を作成
 
 #### テスト用のデータベースを作成
 
@@ -158,3 +165,8 @@ php artisan migrate --env=testing
         <server name="TELESCOPE_ENABLED" value="false"/>
     </php>
 ```
+## 使用技術
+- PHP 8.2.29
+- Laravel Framework 9.52.21
+- nginx/1.21.1
+- mysql from 11.8.3-MariaDB
