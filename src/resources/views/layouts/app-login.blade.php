@@ -6,6 +6,7 @@
     <title>COΛCHTECH</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common-login.css') }}">
+    @yield('css')
 </head>
 <body>
     <header class="header">
@@ -14,5 +15,8 @@
         </div>
     </header>
     
+    <main>
+        @yield('content')
+    </main>
 </body>
 </html>

@@ -20,12 +20,21 @@
                         <li class="header-nav__item-search">
                             <input class="header-nav__search-input" type="text" placeholder="何をお探しですか？">
                         </li>
+
+                        @auth
                         <li class="header-nav__item">
                             <form  action="/locout" method="post">
                                 @csrf
                                 <button class="header-nav__button">ログアウト</button>
                             </form>
                         </li>
+                        @endauth
+
+                        @guest
+                        <li class="header-nav__item">
+                            <a href="/login" class="header-nav__link">ログイン</a>
+                        </li>
+                        @endguest
                         <li class="header-nav__item">
                             <a class="header-nav__link" href="/mypage">マイページ</a>
                         </li>

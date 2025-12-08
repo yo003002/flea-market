@@ -170,3 +170,6 @@ php artisan migrate --env=testing
 - Laravel Framework 9.52.21
 - nginx/1.21.1
 - mysql from 11.8.3-MariaDB
+
+## ER図
+- ![ER図](flea-market.png)
