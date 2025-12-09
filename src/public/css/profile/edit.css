@@ -1,0 +1,81 @@
+.edit-content {
+    max-width: 1230px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.edit-header h2 {
+    text-align: center;
+}
+
+/* フォーム */
+.edit-form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+
+/* 画像選択 */
+.edit-form__img-set {
+    display: flex;
+}
+
+.edit-form__img-select-btn {
+    margin-left: 20px;
+}
+
+
+
+/* ユーザー名・郵便番号・住所・建物名　共通 */
+.edit-form__name-title p ,
+.edit-form__postal-code-title p ,
+.edit-form__address-title p ,
+.edit-form__building-title p {
+    font-weight: bold;
+    margin: 20px 0 3px 0;
+}
+
+
+/* input　共通 */
+.edit-form__name-input,
+.edit-form__postal-code-input,
+.edit-form__address-input,
+.edit-form__building-input {
+    height: 40px;
+}
+
+.edit-form__name-input input,
+.edit-form__postal-code-input input,
+.edit-form__address-input input,
+.edit-form__building-input input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #5f5f5f;
+    border-radius: 3px;
+    outline: none;
+}
+
+
+/* 更新ボタン */
+.edit-form__update-btn {
+    width: 100%;
+    height: 40px;
+    margin: 35px 0;
+}
+
+.edit-form__update-btn-submit {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    background: #ff5555;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+* {
+    border: 1px solid red;
+}
