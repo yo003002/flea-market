@@ -1,25 +1,22 @@
+<!-- 商品一覧画面（トップ画面） -->
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/items/index.php') }}">
+<link rel="stylesheet" href="{{ asset('css/items/index.css') }}">
 @endsection
 
 @section('content')
 <div class="items-content">
     <div class="items-content__link">
-        <a href="/" class="items-content__link-item font-red">おすすめ</a>
-        <a href="/" class="items-content__link-item font-gray">マイリスト</a>
+        <a href="/" class="items-content__link-item">おすすめ</a>
+        <a href="/" class="items-content__link-item">マイリスト</a>
     </div>
     <div class="items-img">
         <div class="items-img__list">
-            @foreach($items as $item)
-            <a href="/item/{{ $item->id }}" class="item-card">
-                <div class="item-card__image-wrap">
-                    <img class="item-card__image" src="{{ asset('atorage/' . $item->image) }}" alt="">
-                </div>
-                <div class="item-card__title">{{ $item->name }}</div>
-            </a>
-            @endforeach
+
+        <h2>商品画面一覧</h2>
+
+        todo商品の画像と商品名を入れる
         </div>
     </div>
 </div>

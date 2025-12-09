@@ -16,6 +16,16 @@ class PurchaseController extends Controller
         //
     }
 
+    public function confirm()
+    {
+        return view('purchase.confirm');
+    }
+
+    public function address()
+    {
+        return view('purchase.address');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
