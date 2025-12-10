@@ -12,12 +12,7 @@
         <a href="/" class="items-content__link-item">マイリスト</a>
     </div>
     <div class="items-img">
-        <div class="items-img__list">
-
-        <h2>商品画面一覧</h2>
-
-        todo商品の画像と商品名を入れる
-        </div>
+        <p>todoここに商品一覧を置く</p>
     </div>
 </div>
 @endsection

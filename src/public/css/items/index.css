@@ -1,6 +1,6 @@
 
 
-/* オススメとマイリスト */
+/* オススメとマイリストボタン */
 .items-content__link {
     display: flex;
     padding: 30px 5px 5px 80px;
@@ -21,6 +21,8 @@
 .items-content__link-item:first-of-type {
     margin-right: 50px;
 }
+
+
 
 
 
