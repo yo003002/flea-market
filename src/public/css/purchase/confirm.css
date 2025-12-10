@@ -1,0 +1,148 @@
+.purchase-content {
+    max-width: 1230px;
+    padding: 10px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* ここから左半分 */
+.purchase-content__left {
+    width: 65%;
+    padding: 20px;
+}
+
+.purchase-item__inner {
+    display: flex;
+    border-bottom: 1px solid #000;
+}
+
+
+
+/* 商品名 */
+.purchase-item__name-prise {
+    margin-left: 30px;
+}
+
+.purchase-item__name-title p {
+    font-weight: bold;
+}
+
+
+/* 支払い方法 */
+.purchase-item__payment {
+    border-bottom: 1px solid #000;
+    padding-bottom: 50px;
+}
+
+.purchase-item__payment-title p {
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+.purchase-item__payment-select {
+    margin-left: 50px;
+    height: 30px;
+}
+
+.purchase-item__payment-select select {
+    height: 100%;
+    width: 30%;
+    border: 1px solid #5f5f5f;
+    border-radius: 3px;
+    outline: none;
+}
+
+
+/* 配送先 */
+.purchase-item__delivery {
+    border-bottom: 1px solid #000;
+}
+
+.purchase-item__delivary-inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.purchase-item__deliver-title {
+    font-weight: bold;
+}
+
+.purchase-item__address {
+    margin-left: 50px;
+}
+
+/* 変更ボタン */
+.purchase-item__change-btn {
+    display: flex;
+    align-items: center;
+}
+
+.purchase-item__change-btn a {
+    color: #0073cc;
+    text-decoration: none;
+}
+
+
+
+/* ここから右半分 */
+.purchase-content__right {
+    width: 35%;
+    padding: 40px;
+}
+
+.purchase-table {
+    width: 100%;
+}
+
+/* テーブル */
+.purchase-table__inner {
+    width: 100%;
+    table-layout: fixed;
+    border: 1px solid #000;
+}
+
+.purchase-table__row {
+    border-bottom: 1px solid #000;
+}
+
+.purchase-table__row:last-of-type {
+    border-bottom: none;
+}
+
+.price-header,
+.payment-header {
+    height: 50%;
+    width: 50%;
+}
+
+.purchase-table__header,
+.purchase-table__content {
+    padding: 15px 20px;
+    text-align: center;
+}
+
+
+/* 購入ボタン */
+.purchase-item__btn {
+    width: 100%;
+    height: 40px;
+    margin: 35px 0;
+}
+
+.purchase-item__btn-submit {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    background: #ff5555;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+

@@ -30,15 +30,6 @@
     justify-content: space-between;
 }
 
-.header-nav__link-exhibit {
-    border: none;
-    border-radius: 3px;
-    color: #000;
-    background: #fff;
-    padding: 8px 15px;
-    text-decoration: none;
-}
-
 
 /* 検索 */
 .header-nav__item-search {
@@ -80,4 +71,15 @@
     font-size: 20px;
     padding: 10px;
     text-decoration: none
+}
+
+
+/* 出品ボタン */
+.header-nav__link-exhibit {
+    border: none;
+    border-radius: 3px;
+    color: #000;
+    background: #fff;
+    padding: 8px 20px;
+    text-decoration: none;
 }

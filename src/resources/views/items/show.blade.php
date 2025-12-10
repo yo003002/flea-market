@@ -15,7 +15,7 @@
         <form class="show-content__form" action="">
             <div class="item-detail">
                 <div class="item-detail__title">
-                    <h3>todo商品名をここに入れる</h3>
+                    <h2>todo商品名をここに入れる</h2>
                 </div>
                 <div class="item-detail__brand">
                     <p>todoブランド名を入れる</p>

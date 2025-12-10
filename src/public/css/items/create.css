@@ -35,7 +35,7 @@
 /* 商品の状態 */
 .sell-item__status-title p {
     font-weight: bold;
-    margin: 10px 0 0 0;
+    margin: 25px 0 5px 0;
 }
 
 .sell-item__status {
@@ -67,7 +67,7 @@
 /* 商品名 */
 .sell-item__name-title p {
     font-weight: bold;
-    margin: 20px 0 5px 0;
+    margin: 25px 0 5px 0;
 }
 
 .sell-item__name-input {
@@ -77,7 +77,7 @@
 /* ブランド名 */
 .sell-item__brand-name-title p {
     font-weight: bold;
-    margin: 20px 0 5px 0;
+    margin: 25px 0 5px 0;
 }
 
 .sell-item__brand-name-input {
@@ -88,7 +88,7 @@
 /* 商品の説明 */
 .sell-item__explain-title p {
     font-weight: bold;
-    margin: 20px 0 5px 0;
+    margin: 25px 0 5px 0;
 }
 
 .sell-item__explain-textarea {
@@ -99,7 +99,7 @@
 /* 販売価格 */
 .sell-item__price-title p {
     font-weight: bold;
-    margin: 20px 0 5px 0;
+    margin: 25px 0 5px 0;
 }
 
 .sell-item__price-input {
