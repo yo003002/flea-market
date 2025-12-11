@@ -59,12 +59,48 @@
             <p>販売価格</p>
         </div>
         <div class="sell-item__price-input">
-            <input type="text">
+            <input type="text" id="price" value="￥">
         </div>
         <div class="sell-item__btn">
             <button class="sell-item__btn-submit" type="submit">出品する</button>
         </div>
     </form>
  </div>
- 
  @endsection
+
+ @push('scripts')
+ <script>
+    const priceInput = document.getElementById('price');
+
+    priceInput.addEventListener('click', function () {
+        
+        if (this.selectionStart < 1) {
+            this.setSelectionRange(1, 1);
+        }
+    });
+
+     priceInput.addEventListener('input', function (e) {
+
+        let value = e.target.value;
+
+        if (!value.startsWith('￥')) {
+            value = '￥' + value.replace(/[^\d]/g, '');
+        }
+         
+        value = value.replace(/[^\d]/g, '');
+        
+        if (value === '') {
+         e.traget.value = '￥';
+            return;
+        }
+
+        let formatted = Number(value).toLocaleString();
+
+        e.target.value = '￥' + formatted;
+
+        if (e.target.selectionStart < 1) {
+            e.target.setSelectionRange(1, 1);
+        }
+    });
+ </script>
+ @endpush

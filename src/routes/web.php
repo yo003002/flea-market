@@ -6,6 +6,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MypageController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,6 @@ Route::get('/purchase/{item_id}', [PurchaseController::class, 'confirm']);
 Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address']);
 
 
-Route::get('/mypage/profile', [ProfileController::class, 'edit']);
 
 
 Route::get('/mypage', [MypageController::class, 'index']);
@@ -34,4 +34,13 @@ Route::get('/mypage/sell', [MypageController::class, 'sold']);
 
 
 Route::middleware('auth')->group(function () {
+
+    //マイページ・プロフィール編集
+    Route::get('/mypage/profile', [ProfileController::class, 'edit']);
+    Route::post('/mypage/profile', [ProfileController::class, 'update']);
+    
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
 });

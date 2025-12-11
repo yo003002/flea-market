@@ -10,9 +10,9 @@
     <div class="mypage-profile">
         <div class="mypage-profile__img">写真</div>
         <div class="mypage-profile__name">ユーザー名</div>
-        <form action="" class="mypage-profile__btn">
-            <a href="" class="mypage-profile__btn-edit">プロフィールを編集</a>
-        </form>
+        <div class="mypage-profile__btn">
+            <a href="/mypage/profile" class="mypage-profile__btn-edit">プロフィールを編集</a>
+        </div>
     </div>
     <div class="mypage-item">
         <div class="mypage-sell-item">

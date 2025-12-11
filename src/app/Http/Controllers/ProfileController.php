@@ -57,7 +57,12 @@ class ProfileController extends Controller
     public function edit()
     {
         //
-        return view('profile.edit');
+        $user = auth()->user();
+        $address = $user->address ?? new \App\Models\Address;
+
+        $mode = $user->is_profile_set ? 'edit' : 'first';
+
+        return view('profile.edit', compact('user', 'address', 'mode'));
     }
 
     /**
@@ -67,9 +72,45 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        //リクエストでバリデーションを作成したらここのバリデーションは削除
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'postal_code' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'building' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|image',
+        ]);
+
+        $user = auth()->user();
+    
+
+        $user->name = $request->name;
+
+        //プロフ画像があれば保存
+        if ($request->hasFile('profile_image')) {
+            $path = $request->file('profile_imege')->store('profile_images', 'public');
+            $user->profile_image = $path;
+        }
+
+        $user->is_profile_set = true;
+        $user->save();
+
+
+        // 住所
+        $user->address()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'postal_code' => $request->postal_code,
+                'address' => $request->address,
+                'name' => $user->name,
+                'building' => $request->building,
+            ]
+            );
+
+            return redirect('/mypage');
     }
 
     /**

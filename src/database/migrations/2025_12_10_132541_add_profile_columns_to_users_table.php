@@ -17,6 +17,7 @@ return new class extends Migration
             //
             $table->string('profile_image')->nullable();
             $table->text('profile_comment')->nullable();
+            $table->boolean('is_profile_set')->default(false);
         });
     }
 
@@ -29,7 +30,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn(['profile_image', 'profile_comment']);
+            $table->dropColumn(['profile_image', 'profile_comment', 'is_profile_set']);
         });
     }
 };

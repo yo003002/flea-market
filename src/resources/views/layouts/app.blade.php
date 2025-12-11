@@ -23,7 +23,7 @@
 
                         @auth
                         <li class="header-nav__item">
-                            <form  action="/locout" method="post">
+                            <form  action="/logout" method="post">
                                 @csrf
                                 <button class="header-nav__button">ログアウト</button>
                             </form>
@@ -51,5 +51,8 @@
     <main>
         @yield('content')
     </main>
+
+    @stack('scripts')
+    
 </body>
 </html>

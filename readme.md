@@ -166,7 +166,7 @@ php artisan migrate --env=testing
     </php>
 ```
 ## 使用技術
-- PHP 8.2.29
+- PHP 8.4.14
 - Laravel Framework 9.52.21
 - nginx/1.21.1
 - mysql from 11.8.3-MariaDB
