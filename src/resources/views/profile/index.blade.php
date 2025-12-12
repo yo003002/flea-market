@@ -8,12 +8,23 @@
  @section('content')
  <div class="mypage-content">
     <div class="mypage-profile">
-        <div class="mypage-profile__img">写真</div>
-        <div class="mypage-profile__name">ユーザー名</div>
+
+        <div class="mypage-profile__img">
+            @if(Auth::user() && Auth::user()->profile_image)
+                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール画像">
+            @else
+                <p>画像未設定</p>
+            @endif
+        </div>
+        <div class="mypage-profile__name">
+            <h2> {{ Auth::user()->name }}</h2>
+        </div>
+
         <div class="mypage-profile__btn">
             <a href="/mypage/profile" class="mypage-profile__btn-edit">プロフィールを編集</a>
         </div>
     </div>
+
     <div class="mypage-item">
         <div class="mypage-sell-item">
             <a href="">出品した商品</a>

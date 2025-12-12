@@ -91,7 +91,8 @@ class ProfileController extends Controller
 
         //プロフ画像があれば保存
         if ($request->hasFile('profile_image')) {
-            $path = $request->file('profile_imege')->store('profile_images', 'public');
+            $path = $request->file('profile_image')->store('profile_images', 'public');
+            //　DBにパスを保存
             $user->profile_image = $path;
         }
 

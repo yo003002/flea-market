@@ -6,17 +6,33 @@
     margin: 20px auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 60%;
 }
+
+/* プロフィール画像 */
+.mypage-profile__img {
+    height: 100px;
+    width: 100px;
+}
+
+.mypage-profile__img img {
+    border: none;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+} 
 
 
 /* プロフィール編集ボタン */
 .mypage-profile__btn {
+    display: flex;
+    align-items: center;
     margin-left: 350px;
     border: 1.5px solid #ff5555;
     border-radius: 5px;
-    font-weight: bold;
     padding: 5px 10px;
+    height: 40px;
 }
 
 .mypage-profile__btn a {

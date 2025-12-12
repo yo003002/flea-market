@@ -15,13 +15,46 @@
 }
 
 
-/* 画像選択 */
+
+/* 画像フォーム */
 .edit-form__img-set {
     display: flex;
+    align-items: center;
 }
 
+/* プロフ画像 */
+.edit-form__img {
+    height: 100px;
+    width: 100px;
+}
+
+.edit-form__img img {
+    border: none;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+
+/* 選択ボタン */
 .edit-form__img-select-btn {
+    display: flex;
+    align-items: center;
     margin-left: 20px;
+    border: 1.5px solid #ff5555;
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 40px;
+    
+}
+.edit-form__img-select-btn label {
+    cursor: pointer;
+    color: #ff5555;
+    font-weight: bold;
+}
+
+.custum-input {
+    display: none;
 }
 
 

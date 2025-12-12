@@ -17,26 +17,27 @@
         </h2>
     </div>
 
-    <form action="/mypage/profile" method="post" enctype="multipart/form-date" class="edit-form">
+    <form action="/mypage/profile" method="post" enctype="multipart/form-data" class="edit-form">
         @csrf
         <div class="edit-form__img-set">
 
             <div class="edit-form__img">
-                @if($user->profile_image)
-                <img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像">
+                @if(Auth::user() && Auth::user()->profile_image)
+                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール画像">
                 @else
                 <p>画像未設定</p>
                 @endif
             </div>
 
             <div class="edit-form__img-select-btn">
-                <input type="file" name="profile_image">
+                <label for="profile_image" class="custom-label">画像を選択する</label>
+                <input id="profile_image" type="file" name="profile_image" class="custum-input">
             </div>
         </div>
 
 
         <div class="edit-form__name-title">
-            <p>ユーザー名</p>
+            <p>{{ Auth::user()->name }}</p>
         </div>
         <div class="edit-form__name-input">
             <input type="text" name="name" value="{{ old('name', $user->name) }}">
