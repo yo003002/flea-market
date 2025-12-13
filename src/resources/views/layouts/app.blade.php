@@ -39,7 +39,7 @@
                             <a class="header-nav__link" href="/mypage">マイページ</a>
                         </li>
                         <li class="header-nav__item">
-                            <a href="" class="header-nav__link-exhibit">出品</a>
+                            <a href="/sell" class="header-nav__link-exhibit">出品</a>
                         </li>
                     </ul>
                 </nav>

@@ -1,6 +1,3 @@
-
-
-
 /* プロフィール */
 .mypage-profile {
     margin: 20px auto;
@@ -21,7 +18,7 @@
     border-radius: 50%;
     height: 100%;
     width: 100%;
-} 
+}
 
 
 /* プロフィール編集ボタン */
@@ -69,6 +66,32 @@
 
 
 
-* {
-    border: 1px solid red;
+/* 出品リスト */
+
+.sell-item-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
+
+.sell-item-card {
+    width: calc(25% - 20px);
+    /* 4列 */
+    list-style: none;
+}
+
+
+/* 画像 */
+.sell-item-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: none;
+}
+
+
+/* マウスを乗せた時に 1.03 倍に “ふわっ” と拡大 */
+.sell-item-card:hover {
+    transform: scale(1.03);
+}
+

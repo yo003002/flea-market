@@ -2,7 +2,7 @@
  @extends('layouts.app')
  
  @section('css')
- <link rel="stylesheet" href="{{ asset('css/profile/index.css') }}">
+ <link rel="stylesheet" href="{{ asset('css/mypage/index.css') }}">
  @endsection
 
  @section('content')
@@ -27,11 +27,12 @@
 
     <div class="mypage-item">
         <div class="mypage-sell-item">
-            <a href="">出品した商品</a>
+            <a href="/mypage?page=sell">出品した商品</a>
         </div>
         <div class="mypage-sold-item">
             <a href="">購入した商品</a>
         </div>
     </div>
  </div>
+
  @endsection

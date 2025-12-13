@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Item;
+use App\Models\ItemImage;
 
 class MypageController extends Controller
 {
@@ -11,10 +14,20 @@ class MypageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return view('profile.index');
+        //出品一覧
+        if ($request->query('page') === 'sell') {
+
+            $items = Item::with('images')
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
+
+                return view('mypage.sell', compact('items'));
+        }
+
+        return view('mypage.index');
     }
 
     /**

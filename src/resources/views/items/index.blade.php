@@ -11,8 +11,10 @@
         <a href="/" class="items-content__link-item">おすすめ</a>
         <a href="/" class="items-content__link-item">マイリスト</a>
     </div>
-    <div class="items-img">
-        <p>todoここに商品一覧を置く</p>
+    <div class="items-list">
+
+    <p>todoオススメとマイリストを表示</p>
+
     </div>
 </div>
 @endsection

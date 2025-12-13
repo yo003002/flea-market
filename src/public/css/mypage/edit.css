@@ -35,6 +35,21 @@
     width: 100%;
 }
 
+.preview-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.preview-area img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
 
 /* 選択ボタン */
 .edit-form__img-select-btn {

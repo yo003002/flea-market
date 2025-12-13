@@ -2,7 +2,7 @@
  @extends('layouts.app')
 
  @section('css')
- <link rel="stylesheet" href="{{ asset('css/profile/edit.css') }}">
+ <link rel="stylesheet" href="{{ asset('css/mypage/edit.css') }}">
  @endsection
 
  @section('content')
@@ -33,8 +33,11 @@
                 <label for="profile_image" class="custom-label">画像を選択する</label>
                 <input id="profile_image" type="file" name="profile_image" class="custum-input">
             </div>
-        </div>
 
+            
+        </div>
+        
+        <div id="preview-area" class="preview-area"></div>
 
         <div class="edit-form__name-title">
             <p>{{ Auth::user()->name }}</p>
@@ -70,3 +73,28 @@
     </form>
  </div>
  @endsection
+
+ @push('scripts')
+<script>
+document.getElementById('profile_image').addEventListener('change', function(e) {
+
+    const preview = document.getElementById('preview-area');
+    preview.innerHTML = ''; // まずリセット
+
+    const file = e.target.files[0]; // プロフィールは1枚だけ
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const img = document.createElement('img');
+        img.src = event.target.result;
+        img.classList.add('preview-image'); // CSSでサイズ調整
+        preview.appendChild(img);
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+@endpush
