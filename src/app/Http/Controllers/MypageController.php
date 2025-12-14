@@ -24,10 +24,10 @@ class MypageController extends Controller
                 ->latest()
                 ->get();
 
-                return view('mypage.sell', compact('items'));
+                return view('profile.sell', compact('items'));
         }
 
-        return view('mypage.index');
+        return view('profile.index');
     }
 
     /**

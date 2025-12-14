@@ -1,11 +1,12 @@
-<!-- プロフィール画面　/mypage -->
- @extends('layouts.app')
- 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/mypage/index.css') }}">
- @endsection
+<!-- プロフ画面　出品した商品一覧 -->
 
- @section('content')
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/profile/sell.css') }}">
+@endsection
+
+@section('content')
  <div class="mypage-content">
     <div class="mypage-profile">
 
@@ -33,6 +34,26 @@
             <a href="">購入した商品</a>
         </div>
     </div>
- </div>
 
- @endsection
+    <div class="sell-item">
+        @if($items->isEmpty())
+            <p>まだ出品した商品はありません</p>
+        @else
+        <ul class="sell-item-list">
+            @foreach($items as $item)
+            <li class="sell-item-card">
+                    @if($item->images->isNotEmpty())
+                    <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="">
+                    @else
+                        <p>No Image</p>
+                    @endif
+
+                    <p>{{ $item->title }}</p>
+            </li>
+            @endforeach
+        </ul>
+        @endif
+    </div>
+    
+</div>
+@endsection

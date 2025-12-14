@@ -15,10 +15,25 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $items = Item::with('images')->orderBy('created_at', 'desc')->get();
+
+        if ($request->query('tab') === 'mylist') {
+
+            if (!auth()->check()) {
+                return redirect()->login();
+            }
+
+            $items = Item::with('images')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+            return view('items.mylist', compact('items'));
+        }
+        
+        $items = Item::with('images')->latest()->get();
         return view('items.index', compact('items'));
     }
 
