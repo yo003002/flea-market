@@ -121,10 +121,12 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($item_id)
     {
         //
-        return view('items.show');
+        $item = Item::with(['images', 'categories'])->findOrFail($item_id);
+
+        return view('items.show', compact('item'));
     }
 
     /**

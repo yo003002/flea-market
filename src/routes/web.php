@@ -18,7 +18,7 @@ use App\Http\Controllers\MypageController;
 |
 */
 Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/{item_id}', [ItemController::class, 'show']);
+Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
 
 

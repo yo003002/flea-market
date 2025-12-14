@@ -38,10 +38,8 @@
 /* 画像 */
 .sell-item-card img {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    /* サイズを正方形に揃える */
-    object-fit: cover;
-    /* 画像が伸びる・潰れる対策 */
+    aspect-ratio: 1 / 1; /* サイズを正方形に揃える */
+    object-fit: cover; /* 画像が伸びる・潰れる対策 */
     border: none;
 }
 
