@@ -22,24 +22,21 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        //全商品（オススメ）
+        $recommendedItems = Item::with('images')->latest()->get();
 
-        if ($request->query('tab') === 'mylist') {
+        //マイリスト（いいねした商品）
+        $mylistItems = collect();
 
-            if (!auth()->check()) {
-                return redirect()->login();
-            }
-
-            $items = Item::with('images')
-            ->where('user_id', auth()->id())
-            ->latest()
-            ->get();
-
-            return view('items.mylist', compact('items'));
+        if (auth()->check()) {
+            $mylistItems = auth()->user()
+                ->likedItems()
+                ->wherePivot('is_favorite', true)
+                ->with('images')
+                ->get();
         }
-        
-        $items = Item::with('images')->latest()->get();
-        return view('items.index', compact('items'));
+
+        return view('items.index', compact('recommendedItems', 'mylistItems'));
     }
 
     /**

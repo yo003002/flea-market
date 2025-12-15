@@ -29,6 +29,7 @@ class LikeController extends Controller
         //いいね追加
         $item->likes()->create([
             'user_id' => $user->id,
+            'is_favorite' => true,
         ]);
 
         return back()->with('status', 'liked');

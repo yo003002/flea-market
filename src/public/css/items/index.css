@@ -23,3 +23,36 @@
 }
 
 
+
+.items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.item-image {
+    width: calc(25% - 20px);
+    list-style: none;
+}
+
+.item-image a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+.item-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* サイズを正方形に揃える */
+    object-fit: cover;
+    /* 画像が伸びる・潰れる対策 */
+    border: none;
+}
+
+
+/* マウスを乗せた時に 1.03 倍に “ふわっ” と拡大 */
+.item-image:hover {
+    transform: scale(1.03);
+}

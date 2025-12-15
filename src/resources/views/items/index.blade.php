@@ -9,12 +9,38 @@
 <div class="items-content">
 
     <div class="items-content__link">
-        <a href="/" class="items-content__link-item {{ request('tab') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
-        <a href="/?tab=mylist" class="items-content__link-item {{ request('tab') === 'mylist' ? 'active' : '' }}">マイリスト</a>
+        <a href="/" class="items-content__link-item">おすすめ</a>
+        <a href="/?tab=mylist" class="items-content__link-item">マイリスト</a>
     </div>
 
     <div class="items-list">
-
+        @if(request('tab') === 'mylist')
+            @auth
+                @forelse($mylistItems as $item)
+                    <div class="item-image">
+                        <a href="{{ route('items.show', ['item_id' => $item->id]) }}">
+                            <img src="{{ $item->images->first()
+                            ? asset('storage/' . $item->images->first()->image_path)
+                            : asset('images/no-image.png') }}" alt="{{ $item->name }}">
+                            <p>{{ $item->name }}</p>
+                        </a>
+                    </div>
+                @empty
+                    <p>まだお気に入りはありません</p>
+                @endforelse
+            @endauth
+        @else
+            @foreach($recommendedItems as $item)
+                <div class="item-image">
+                    <a href="{{ route('items.show', ['item_id' => $item->id]) }}">
+                        <img src="{{ $item->images->first()
+                            ? asset('storage/' . $item->images->first()->image_path)
+                            : asset('images/no-image.png') }}" alt="{{ $item->name }}">
+                        <p>{{ $item->name }}</p>
+                    </a>
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection
