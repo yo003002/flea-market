@@ -8,9 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Item;
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\ItemImage;
+use App\Models\ItemCategory;
 use App\Models\Like;
+use App\Models\Mylist;
+use App\Models\Purcharses;
+use App\Models\Comment;
 
 
 class User extends Authenticatable

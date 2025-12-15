@@ -18,8 +18,7 @@
         </div>
 
         <!-- 商品詳細 -->
-        <form class="show-content__form" action="{{ route('items.like', ['item_id' => $item->id]) }}" method="post">
-            @csrf
+        <div class="show-content__form" >
             <div class="item-detail">
                 <div class="item-detail__title">
                     <h1>{{ $item->title }}</h1>
@@ -32,27 +31,29 @@
                 </div>
 
                 <div class="item-detail__heart-comment">
-                    <div class="heart">
-                            <button class="heart-btn" type="submit">
+                    <div class="item-detail__heart">
+                        <form action="{{ route('items.like', 
+                        ['item_id' => $item->id]) }}" method="post">
+                            @csrf
+                            <button class="item-detail__heart-btn" type="submit">
                                 @if(auth()->check() && $item->isLikeBy(auth()->user()))
                                     <img src="{{ asset('images/ハートロゴ_ピンク.png') }}" alt="">
                                 @else
                                     <img src="{{ asset('images/ハートロゴ_デフォルト.png') }}" alt="">
                                 @endif
                             </button>
-                        <p class="like-count">{{ $item->likes->count() }}</p>
+                        </form>
+                        <p class="item-detail__like-count">{{ $item->likes->count() }}</p>
+                    </div>
+                    <div class="item-detail__comment">
+                        <div class="item-detail__comment-logo">
+                            <img src="{{ asset('images/ふきだしロゴ.png') }}" alt="コメントロゴ">
+                        </div>
+                        <p class="item-detail__comment-count">
+                            {{ $item->comments->count() }}
+                        </p>
                     </div>
                 </div>
-
-           <!-- 現状 -->
-                <!-- <div class="item-detail__heart-comment">
-                    <div class="icon">
-                        <img src="{{ asset('images/ハートロゴ_デフォルト.png') }}" alt="">
-                    </div>
-                    <div class="icon">
-                        <img src="{{ asset('/images/ふきだしロゴ.png') }}" alt="">
-                    </div>
-                </div> -->
 
                 <div class="item-detail__buy-btn">
                     <a href="/">購入手続きへ</a>
@@ -86,20 +87,61 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="item-detail__user-information">
-                    <p>todoここにコメント数・ユーザーの名前と写真とコメント</p>
+                    @if($item->comments->isEmpty())
+                        <p>まだコメントはありません</p>
+                    @endif
+
+                    <p class="comment-count">
+                        コメント({{ $item->comments->count() }})
+                    </p>
+                    
+                    @if($item->latestComment)
+                        <div class="comment-item">
+                            <div class="comment-item-wrap">
+                                <div class="comment-user">
+                                    <img src="{{ $item->latestComment->user->profile_image
+                                    ? asset('storage/' . $item->latestComment->user->profile_image)
+                                    : asset('images/deforlt-user.png') }}" alt="プロフィール画像" class="comment-user-icon">
+                                </div>
+                                <div class="comment-user-name">
+                                    <span>
+                                        {{ $item->latestComment->user->name }}
+                                    </span>
+                                </div>
+                             </div>
+                             <div class="comment-body">
+                                {{ $item->latestComment->comment }}
+                             </div>
+                        </div>
+                    @endif
+
                 </div>
+
                 <div class="item-detail__comment-title">
                     <h4>商品へのコメント</h4>
                 </div>
-                <div class="item-detail__comment-textarea">
-                    <textarea name="" id=""></textarea>
-                </div>
-                <div class="item-detail__comment-btn">
-                    <button class="item-detail__comment-btn-submit" type="submit">コメントを送信する</button>
-                </div>
+                @auth
+                <form action="{{ route('items.comment', ['item_id' => $item->id]) }}" method="post">
+                    @csrf
+                    <div class="item-detail__comment-textarea">
+                        <textarea name="comment" id="4" required></textarea>
+                    </div>
+
+                    <div class="item-detail__comment-btn">
+                        <button class="item-detail__comment-btn-submit" type="submit">コメントを送信する</button>
+                    </div>
+                </form>
+                @else
+                    <p>
+                        コメントするには
+                        <a href="/login">ログイン</a>
+                        してください
+                    </p>
+                @endauth
             </div>
-        </form>
+        </div>
     </div>
  </div>
  @endsection

@@ -6,6 +6,8 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,12 @@ Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.sho
 
 Route::middleware('auth')->group(function () {
     
+    //いいね
     Route::post('/items/{item_id}/like', [LikeController::class, 'store'])->name('items.like');
+
+    //コメント
+    Route::post('items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
+
     
     //プロフィール編集
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);

@@ -11,6 +11,7 @@ use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
 use App\Models\Purcharses;
+use App\Models\Comment;
 
 class Item extends Model
 {
@@ -36,6 +37,8 @@ class Item extends Model
         return $this->hasMany(ItemImage::class);
     }
 
+
+    //いいね
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -55,5 +58,16 @@ class Item extends Model
     public function isLikedBy($user)
     {
         return $this->likes()->where('user_id', $user->id)->exists();
+    }
+
+    //コメント
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function latestComment()
+    {
+        return $this->hasOne(Comment::class)->latestOfMany();
     }
 }

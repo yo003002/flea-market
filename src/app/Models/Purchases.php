@@ -11,6 +11,7 @@ use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
 use App\Models\Item;
+use App\Models\Comment;
 
 class Purchases extends Model
 {

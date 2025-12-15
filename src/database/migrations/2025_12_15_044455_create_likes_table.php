@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_favorite')->default(false);
             $table->timestamps();
 
             $table->unique(['user_id', 'item_id']); //二重いいね防止

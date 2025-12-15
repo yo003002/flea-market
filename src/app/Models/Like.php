@@ -11,6 +11,7 @@ use App\Models\ItemCategory;
 use App\Models\Item;
 use App\Models\Mylist;
 use App\Models\Purcharses;
+use App\Models\Comment;
 
 class Like extends Model
 {
