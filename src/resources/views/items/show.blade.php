@@ -9,7 +9,7 @@
  @section('content')
  <div class="show-content">
     <div class="show-content__item">
-        
+
         <!-- 商品画像 -->
         <div class="show-content__item-img">
             @if($item->images->isNotEmpty())
@@ -18,7 +18,8 @@
         </div>
 
         <!-- 商品詳細 -->
-        <form class="show-content__form" action="">
+        <form class="show-content__form" action="{{ route('items.like', ['item_id' => $item->id]) }}" method="post">
+            @csrf
             <div class="item-detail">
                 <div class="item-detail__title">
                     <h1>{{ $item->title }}</h1>
@@ -29,14 +30,30 @@
                 <div class="item-detail__price">
                     <p>￥<span class="price">{{ number_format($item->price) }}</span><span> (税込) </span></p>
                 </div>
+
                 <div class="item-detail__heart-comment">
+                    <div class="heart">
+                            <button class="heart-btn" type="submit">
+                                @if(auth()->check() && $item->isLikeBy(auth()->user()))
+                                    <img src="{{ asset('images/ハートロゴ_ピンク.png') }}" alt="">
+                                @else
+                                    <img src="{{ asset('images/ハートロゴ_デフォルト.png') }}" alt="">
+                                @endif
+                            </button>
+                        <p class="like-count">{{ $item->likes->count() }}</p>
+                    </div>
+                </div>
+
+           <!-- 現状 -->
+                <!-- <div class="item-detail__heart-comment">
                     <div class="icon">
                         <img src="{{ asset('images/ハートロゴ_デフォルト.png') }}" alt="">
                     </div>
                     <div class="icon">
                         <img src="{{ asset('/images/ふきだしロゴ.png') }}" alt="">
                     </div>
-                </div>
+                </div> -->
+
                 <div class="item-detail__buy-btn">
                     <a href="/">購入手続きへ</a>
                 </div>

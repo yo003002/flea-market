@@ -7,6 +7,7 @@
     width: 60%;
 }
 
+
 /* プロフィール画像 */
 .mypage-profile__img {
     height: 100px;
@@ -77,6 +78,11 @@
 .sell-item-card {
     width: calc(25% - 20px);
     list-style: none;
+}
+
+.sell-item-card a {
+    text-decoration: none;
+    color: #000;
 }
 
 

@@ -12,7 +12,7 @@
         <a href="/?tab=mylist" class="items-content__link-item {{ request('tab') === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
     <div class="items-list">
-        @include('components.sell-item-list', ['items' => $items])
+        <p>todoいいねした商品を表示</p>
     </div>
 </div>
 @endsection

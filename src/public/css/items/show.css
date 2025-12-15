@@ -61,7 +61,7 @@
 }
 
 .price {
-    font-size: 22px;
+    font-size: 30px;
 }
 
 
@@ -72,9 +72,17 @@
     display: flex;
 }
 
-.icon img {
-    width: 22px;
-    height: auto;
+.heart p {
+    margin: 0 18px;
+}
+
+.heart-btn {
+    background: #fff;
+    border: none;
+}
+
+.heart-btn img {
+    width: 30px;
 }
 
 

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Item;
+use App\Models\Address;
+use App\Models\Category;
 use App\Models\ItemImage;
+use App\Models\ItemCategory;
+use App\Models\Like;
+use App\Models\Mylist;
+use App\Models\Purcharses;
 
 
 class ItemController extends Controller
@@ -124,7 +129,7 @@ class ItemController extends Controller
     public function show($item_id)
     {
         //
-        $item = Item::with(['images', 'categories'])->findOrFail($item_id);
+        $item = Item::with(['images', 'categories', 'likes'])->findOrFail($item_id);
 
         return view('items.show', compact('item'));
     }
