@@ -20,7 +20,7 @@ use App\Http\Controllers\CommentController;
 */
 
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
 

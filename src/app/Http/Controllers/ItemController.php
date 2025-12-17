@@ -22,12 +22,21 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        $keyword = $request->keyword;
+
         //ログイン→オススメは自分以外の商品表示
         //未ログイン→全商品表示
-        $recommendedItems = Item::with('images')
+        $recommendedQuery = Item::with('images')
             ->when(auth()->check(), function ($query) {
                 $query->where('user_id', '!=', auth()->id());
-            })
+            });
+
+        //検索があれば追加
+        if (!empty($keyword)) {
+            $recommendedQuery->where('title', 'like', '%' . $keyword. '%');
+        }
+
+        $recommendedItems = $recommendedQuery
             ->latest()
             ->get();
 
@@ -35,14 +44,19 @@ class ItemController extends Controller
         $mylistItems = collect();
 
         if (auth()->check()) {
-            $mylistItems = auth()->user()
+            $mylistQuery = auth()->user()
                 ->likedItems()
                 ->wherePivot('is_favorite', true)
-                ->with('images')
-                ->get();
+                ->with('images');
+
+            if (!empty($keyword)) {
+                $mylistQuery->where('title', 'like', '%' . $keyword . '%');
+            }
+            
+            $mylistItems = $mylistQuery->get();
         }
 
-        return view('items.index', compact('recommendedItems', 'mylistItems'));
+        return view('items.index', compact('recommendedItems', 'mylistItems', 'keyword'));
     }
 
     /**

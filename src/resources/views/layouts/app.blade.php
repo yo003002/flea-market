@@ -18,7 +18,14 @@
                 <nav>
                     <ul class="header-nav">
                         <li class="header-nav__item-search">
-                            <input class="header-nav__search-input" type="text" placeholder="何をお探しですか？">
+                            <form action="{{ route('items.index') }}" method="GET">
+                                <input type="hidden" name="tab" value="{{ request('tab') }}">
+                                <input 
+                                class="header-nav__search-input" type="text" 
+                                name="keyword"
+                                placeholder="何をお探しですか？"
+                                value="{{ request('keyword') }}">
+                            </form>
                         </li>
 
                         @auth

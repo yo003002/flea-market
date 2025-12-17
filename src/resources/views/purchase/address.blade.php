@@ -17,7 +17,7 @@
                 <p>郵便番号</p>
             </div>
             <div class="address-form__input">
-                <input type="text" name="postal_code" value="{{ old('address', $address->address ?? '') }}">
+                <input type="text" name="postal_code" value="{{ old('address', $address->postal_code ?? '') }}">
             </div>
         </div>
         <div class="address-form__inner">
