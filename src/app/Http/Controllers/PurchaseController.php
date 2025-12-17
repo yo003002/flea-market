@@ -154,9 +154,12 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editAddress($item_id)
     {
         //
+        $address = Address::where('user_id', Auth::id())->first();
+
+        return view('purchase.address', compact('address', 'item_id'));
     }
 
     /**
@@ -166,9 +169,24 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateAddress(Request $request, $item_id)
     {
         //
+        $request->validate([
+            'postal_code' => 'required|string',
+            'address' => 'required|string',
+            'building' => 'required|string',
+        ]);
+
+        $address = Address::where('user_id', Auth::id())->firstOrFail();
+
+        $address->update([
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
+            'building' => $request->building,
+        ]);
+
+        return redirect()->route('purchase.confirm', $item_id);
     }
 
     /**
