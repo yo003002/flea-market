@@ -10,7 +10,7 @@ use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
-use App\Models\Purcharses;
+use App\Models\Purchase;
 
 class ProfileController extends Controller
 {
@@ -19,9 +19,31 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //出品一覧
+        if ($request->query('page') === 'sell') {
+
+            $items = Item::with('images')
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
+
+                return view('profile.sell', compact('items'));
+        }
+
+        //購入した商品
+        if ($request->query('page') === 'buy') {
+
+            $purchases = Purchase::with('item.images')
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
+
+            return view('profile.buy', compact('purchases'));
+        }
+
+        return view('profile.index');
     }
 
     /**

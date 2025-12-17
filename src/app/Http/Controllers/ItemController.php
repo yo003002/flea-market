@@ -10,7 +10,7 @@ use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
-use App\Models\Purcharses;
+use App\Models\Purchase;
 
 
 class ItemController extends Controller
@@ -22,8 +22,14 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        //全商品（オススメ）
-        $recommendedItems = Item::with('images')->latest()->get();
+        //ログイン→オススメは自分以外の商品表示
+        //未ログイン→全商品表示
+        $recommendedItems = Item::with('images')
+            ->when(auth()->check(), function ($query) {
+                $query->where('user_id', '!=', auth()->id());
+            })
+            ->latest()
+            ->get();
 
         //マイリスト（いいねした商品）
         $mylistItems = collect();

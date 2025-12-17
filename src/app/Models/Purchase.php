@@ -13,7 +13,7 @@ use App\Models\Mylist;
 use App\Models\Item;
 use App\Models\Comment;
 
-class Purchases extends Model
+class Purchase extends Model
 {
     use HasFactory;
 
@@ -23,4 +23,9 @@ class Purchases extends Model
         'address_id',
         'pay_method',
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

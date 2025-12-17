@@ -1,9 +1,9 @@
-<!-- プロフ画面　出品した商品一覧 -->
+<!-- プロフ画面　購入した商品一覧 -->
 
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile/sell.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile/buy.css') }}">
 @endsection
 
 @section('content')
@@ -35,22 +35,27 @@
         </div>
     </div>
 
-    <div class="sell-itm-content">
-        <div class="sell-item">
-            @if($items->isEmpty())
-                <p>まだ出品した商品はありません</p>
+    <div class="sold-itm-content">
+        <div class="sold-item">
+            @if($purchases->isEmpty())
+                <p>まだ購入した商品はありません</p>
             @else
-                <ul class="sell-item-list">
-                    @foreach($items as $item)
-                        <li class="sell-item-card">
-                            <a href="{{ route('items.show', $item->id) }}">
-                                @if($item->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="">
+                <ul class="sold-item-list">
+                    @foreach($purchases as $purchase)
+                        <li class="sold-item-card">
+                            <a href="{{ route('items.show', $purchase->item->id) }}">
+
+                                @if($purchase->item->status === 'sold')
+                                        <div class="sold-badge">sold</div>
+                                @endif
+
+                                @if($purchase->item->images->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $purchase->item->images->first()->image_path) }}" alt="">
                                 @else
                                     <p>No Image</p>
                                 @endif
 
-                                <p>{{ $item->title }}</p>
+                                <p>{{ $purchase->item->title }}</p>
                             </a>
                         </li>
                     @endforeach

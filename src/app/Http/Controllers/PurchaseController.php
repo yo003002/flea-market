@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Item;
@@ -10,7 +14,7 @@ use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
-use App\Models\Purcharses;
+use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
@@ -24,13 +28,18 @@ class PurchaseController extends Controller
         //
     }
 
-    public function confirm()
+    public function confirm($item_id)
     {
-        return view('purchase.confirm');
+        $item = Item::with('images')->findOrFail($item_id);
+
+        $address = Address::where('user_id', Auth::id())->first();
+
+        return view('purchase.confirm', compact('item', 'address'));
     }
 
     public function address()
     {
+
         return view('purchase.address');
     }
 
@@ -50,9 +59,21 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $item_id)
     {
         //
+        $request->validate([
+            'pay_method' => 'required|string',
+        ]);
+
+        Purchase::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item_id,
+            'address_id' => Address::where('user_id', Auth::id())->first()->id,
+            'pay_method' => $request->pay_method,
+        ]);
+
+        return redirect('/mypage');
     }
 
     /**
@@ -61,10 +82,71 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    //決済
+    public function checkout(Request $request, $item_id)
     {
         //
+        $item = Item::findOrFail($item_id);
+
+        $request->validate([
+            'pay_method' => 'required|string',
+        ]);
+
+        session([
+            'pay_method' => $request->pay_method
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->title,
+                    ],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('purchase.success', $item->id),
+        ]);
+            return redirect($session->url);
     }
+
+
+    //仮
+    public function success($item_id)
+    {
+        $user = Auth::user();
+        $item = Item::findOrFail($item_id);
+
+        //住所を所得
+        $address = $user->address;
+
+        if (!$address) {
+            return redirect('/')
+                ->with('error', '住所が登録されていません');
+        }
+
+
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'address_id' => $address->id,
+            'pay_method' => session('pay_method'),
+        ]);
+
+        $item->update([
+            'status' => 'sold',
+        ]);
+
+        return redirect('/');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

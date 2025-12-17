@@ -12,6 +12,10 @@
 
         <!-- 商品画像 -->
         <div class="show-content__item-img">
+            @if($item->status === 'sold')
+                    <div class="sold-badge">sold</div>
+            @endif
+
             @if($item->images->isNotEmpty())
                 <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="">
             @endif
@@ -27,7 +31,7 @@
                     <p>{{ $item->brand_name }}</p>
                 </div>
                 <div class="item-detail__price">
-                    <p>￥<span class="price">{{ number_format($item->price) }}</span><span> (税込) </span></p>
+                    <p>&yen;<span class="price">{{ number_format($item->price) }}</span><span> (税込) </span></p>
                 </div>
 
                 <div class="item-detail__heart-comment">
@@ -56,7 +60,7 @@
                 </div>
 
                 <div class="item-detail__buy-btn">
-                    <a href="/">購入手続きへ</a>
+                    <a href="{{ route('purchase.confirm', $item->id) }}}">購入手続きへ</a>
                 </div>
                 <div class="item-detail__explain">
                     <h2>商品説明</h2>
@@ -134,11 +138,12 @@
                     </div>
                 </form>
                 @else
-                    <p>
-                        コメントするには
-                        <a href="/login">ログイン</a>
-                        してください
-                    </p>
+                    <div class="item-detail__comment-textarea">
+                        <textarea id="comment-guest" required></textarea>
+                    </div>
+                    <div class="item-detail__comment-btn">
+                        <a href="/login">コメントを送信する</a>
+                    </div>
                 @endauth
             </div>
         </div>

@@ -6,18 +6,23 @@
  @endsection
 
  @section('content')
- <form class="purchase-content" action="">
+ <form class="purchase-content" action="{{ route('purchase.checkout', $item->id) }}" method="post">
+    @csrf
+
+    <!-- 左半分 -->
     <div class="purchase-content__left">
         <div class="purchase-item__inner">
             <div class="purchase-item__img">
-                <p>todo商品画像を入れる</p>
+                @if($item->images->isNotEmpty())
+                    <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="">
+                @endif
             </div>
             <div class="purchase-item__name-prise">
                 <div class="purchase-item__name-title">
-                    <p>todo商品名を入れる</p>
+                    <p>{{ $item->title }}</p>
                 </div>
-                <div class="purchase-item__price">
-                    <p>todo金額を入れる</p>
+                <div class="purchase-item__price price-common">
+                    <p>&yen;&nbsp;<span>{{ number_format($item->price) }}</span></p>
                 </div>
             </div>
         </div>
@@ -26,9 +31,12 @@
                 <p>支払い方法</p>
             </div>
             <div class="purchase-item__payment-select">
-                <select name="" id="">
-                    <option disabled selected>todoここに選択肢を入れる</option>
-                </select>
+                <select name="pay_method" id="pay_method" class="custom-select selected" required>
+                <option value="" disabled selected hidden>選択してください</option>
+                <option value="コンビニ払い">コンビニ払い</option>
+                <option value="カード払い">カード払い</option>
+            </select>
+            <p>todo選択中のカラーを調整する</p>
             </div>
         </div>
         <div class="purchase-item__delivery">
@@ -37,31 +45,57 @@
                     <p>配送先</p>
                 </div>
                 <div class="purchase-item__change-btn">
-                    <a href="">変更する</a>
+                    <a href="{{ route('purchase.address', $item->id) }}">変更する</a>
                 </div>
             </div>
             <div class="purchase-item__address">
-                <p>todoここに住所と建物が入る</p>
+                @if($address)
+                    <p>
+                        &#12306;{{ $address->postal_code }}<br>
+                        {{ $address->address }}<br>
+                        {{ $address->building }}
+                    </p>
+                @else
+                    <p>住所が登録されていません</p>
+                @endif
             </div>
         </div>
     </div>
+
+    <!-- 右半分 -->
     <div class="purchase-content__right">
-        <form action="" class="purchase-form"></form>
-            <div class="purchase-table">
-                <table class="purchase-table__inner">
-                    <tr class="purchase-table__row">
-                        <td class="purchase-table__header price-header">商品代金</td>
-                        <td class="purchase-table__content">todo金額をここに入れる</td>
-                    </tr>
-                    <tr class="purchase-table__row">
-                        <td class="purchase-table__header payment-header">支払い方法</td>
-                        <td class="purchase-table__content">todo支払い方法をここにいれる</td>
-                    </tr>
-                </table>
-            </div>
+        <div class="purchase-table">
+            <table class="purchase-table__inner">
+                <tr class="purchase-table__row">
+                    <td class="purchase-table__header price-header">商品代金</td>
+                    <td class="purchase-table__content price-common">
+                        <p>&yen;&nbsp;<span>{{ number_format($item->price) }}</span></p>
+                    </td>
+                </tr>
+                <tr class="purchase-table__row">
+                    <td class="purchase-table__header payment-header">支払い方法</td>
+                    <td class="purchase-table__content" id="selected-pay-method">
+                        <p>未選択</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="purchase-item__btn">
             <button class="purchase-item__btn-submit" type="submit">購入する</button>
         </div>
     </div>
  </form>
  @endsection
+
+ @push('scripts')
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const select = document.getElementById('pay_method');
+        const display = document.getElementById('selected-pay-method');
+
+        select.addEventListener('change', function () {
+            display.textContent = select.value;
+        });
+    });
+ </script>
+ @endpush

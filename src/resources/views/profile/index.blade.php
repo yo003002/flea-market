@@ -30,7 +30,7 @@
             <a href="/mypage?page=sell">出品した商品</a>
         </div>
         <div class="mypage-sold-item">
-            <a href="">購入した商品</a>
+            <a href="/mypage?page=buy">購入した商品</a>
         </div>
     </div>
  </div>

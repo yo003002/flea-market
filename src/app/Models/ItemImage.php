@@ -10,7 +10,7 @@ use App\Models\Item;
 use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
-use App\Models\Purcharses;
+use App\Models\Purchase;
 use App\Models\Comment;
 
 class ItemImage extends Model

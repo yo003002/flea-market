@@ -11,7 +11,7 @@ use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
 use App\Models\Mylist;
-use App\Models\Purcharses;
+use App\Models\Purchase;
 
 class Comment extends Model
 {

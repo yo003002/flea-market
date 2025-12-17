@@ -1,0 +1,123 @@
+/* プロフィール */
+.mypage-profile {
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+
+
+/* プロフィール画像 */
+.mypage-profile__img {
+    height: 100px;
+    width: 100px;
+}
+
+.mypage-profile__img img {
+    border: none;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+
+/* プロフィール編集ボタン */
+.mypage-profile__btn {
+    display: flex;
+    align-items: center;
+    margin-left: 350px;
+    border: 1.5px solid #ff5555;
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 40px;
+}
+
+.mypage-profile__btn a {
+    color: #ff5555;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+/* 出品・購入した商品リンクボタン */
+.mypage-item {
+    display: flex;
+    padding: 30px 5px 5px 80px;
+    border-bottom: 1.5px solid #646464;
+}
+
+.mypage-sell-item a,
+.mypage-sold-item a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #5f5f5f;
+    font-weight: bold;
+}
+
+.mypage-sell-item:hover a,
+.mypage-sold-item:hover a {
+    color: #ff0000;
+}
+
+.mypage-sell-item {
+    margin-right: 50px;
+}
+
+
+
+/* 出品リスト */
+
+.sold-item-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.sold-item-card {
+    width: calc(25% - 20px);
+    list-style: none;
+    position: relative;
+    overflow: hidden; /* はみ出した部分をカット */
+}
+
+.sold-item-card a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+/* 画像 */
+.sold-item-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* サイズを正方形に揃える */
+    object-fit: cover;
+    /* 画像が伸びる・潰れる対策 */
+    border: none;
+}
+
+
+/* マウスを乗せた時に 1.03 倍に “ふわっ” と拡大 */
+.sold-item-card:hover {
+    transform: scale(1.03);
+}
+
+.sold-badge {
+    position: absolute;
+    top: 16px;
+    left: -40px;
+    width: 160px;
+    text-align: center;
+
+    background: red;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 6px 0;
+
+    transform: rotate(-45deg);
+    z-index: 10;
+
+}
