@@ -105,7 +105,6 @@
                         コメント({{ $item->comments->count() }})
                     </p>
                     
-                    <!-- @if($item->latestComment) -->
                         <div class="comment-item">
                             <div class="comment-item-wrap">
                                 <div class="comment-user">
@@ -127,8 +126,6 @@
                                {{ $item->latestComment->comment ?? 'コメントはまだありません' }}
                             </div>
                         </div>
-                    <!-- @endif -->
-
                 </div>
 
                 <div class="item-detail__comment-title">

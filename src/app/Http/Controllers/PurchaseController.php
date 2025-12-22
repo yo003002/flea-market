@@ -70,22 +70,7 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request, $item_id)
-    // {
-    //     //
-    //     $request->validate([
-    //         'pay_method' => 'required|string',
-    //     ]);
 
-    //     Purchase::create([
-    //         'user_id' => Auth::id(),
-    //         'item_id' => $item_id,
-    //         'address_id' => Address::where('user_id', Auth::id())->first()->id,
-    //         'pay_method' => $request->pay_method,
-    //     ]);
-
-    //     return redirect('/mypage');
-    // }
 
     /**
      * Display the specified resource.

@@ -1,8 +1,6 @@
 <!-- 送付先住所変更画面  /purchase/address/{item_id} -->
  @extends('layouts.app')
 
- <p>todoAddressバリデーションを実装する</p>
-
  @section('css')
  <link rel="stylesheet" href="{{ asset('css/purchase/address.css') }}">
  @endsection

@@ -53,6 +53,9 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(10)->by($email . $request->ip());
         });
+        
+        $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
 
 
         //登録後初回プロフィールへ
@@ -81,23 +84,7 @@ class FortifyServiceProvider extends ServiceProvider
         //     };
         // });
 
-        Fortify::authenticateUsing(function (Request $request) {
 
-            $loginRequest = LoginRequest::createFrom($request); $loginRequest->setContainer(app()); $loginRequest->setRedirector(app('redirect'));
-
-            $loginRequest->validateResolved();
-
-
-            if (!Auth::attempt(
-                $request->only('email', 'password'), $request->boolean('remember')
-            )) {
-                    throw ValidationException::withMessages([
-                        'email' => 'ログイン情報が登録されていません',
-                ]);
-            }
-
-            return Auth::user();
-        });
 
         // メール認証機能
         // $this->app->singleton(LoginResponse::class, function () {
@@ -121,7 +108,7 @@ class FortifyServiceProvider extends ServiceProvider
         //         }
         //     };
         // });
-    }
 
+    }
 
 }
