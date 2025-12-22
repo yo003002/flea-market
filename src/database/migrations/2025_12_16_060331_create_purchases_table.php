@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
             $table->foreignId('address_id')->constrained('addresses')->onDelete('cascade');
             $table->string('pay_method');
+            $table->unique(['user_id', 'item_id']);
             $table->timestamps();
         });
     }

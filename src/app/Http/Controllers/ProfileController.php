@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressRequest;
+
+use App\Http\Requests\ProfileRequest;
+
 use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Item;
@@ -84,7 +88,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
         //
         $user = auth()->user();
@@ -102,17 +106,9 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
-        //
-        //リクエストでバリデーションを作成したらここのバリデーションは削除
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'building' => 'nullable|string|max:255',
-            'profile_image' => 'nullable|image',
-        ]);
+
 
         $user = auth()->user();
     

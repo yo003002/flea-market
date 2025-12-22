@@ -71,4 +71,14 @@ class User extends Authenticatable
                     ->withTimestamps() 
                     ->withPivot('is_favorite');
     }
+
+    // 画像が無くてもログイン時トップへ。プロフィール編集に飛ばない。
+    public function getIsProfileSetAttribute($value)
+    {
+        return $value || (
+            !empty($this->name) &&
+            !empty($this->profile_comment) &&
+            $this->address()->exists()
+        );
+    }
 }

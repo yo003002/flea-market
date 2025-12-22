@@ -70,4 +70,9 @@ class Item extends Model
     {
         return $this->hasOne(Comment::class)->latestOfMany();
     }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
 }

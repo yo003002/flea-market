@@ -60,8 +60,15 @@
                 </div>
 
                 <div class="item-detail__buy-btn">
-                    <a href="{{ route('purchase.confirm', $item->id) }}}">購入手続きへ</a>
+                    @if ($item->user_id === auth()->id())
+                        <button disabled>自分の商品は購入できません</button>
+                    @elseif ($item->status === 'sold')
+                        <button disabled>売り切れ</button>
+                    @else
+                        <a href="{{ route('purchase.confirm', $item->id) }}}">購入手続きへ</a>
+                    @endif
                 </div>
+
                 <div class="item-detail__explain">
                     <h2>商品説明</h2>
                 </div>
@@ -93,33 +100,34 @@
                 </div>
 
                 <div class="item-detail__user-information">
-                    @if($item->comments->isEmpty())
-                        <p>まだコメントはありません</p>
-                    @endif
 
                     <p class="comment-count">
                         コメント({{ $item->comments->count() }})
                     </p>
                     
-                    @if($item->latestComment)
+                    <!-- @if($item->latestComment) -->
                         <div class="comment-item">
                             <div class="comment-item-wrap">
                                 <div class="comment-user">
+                                    @if ($item->latestComment->user->profile_image)
                                     <img src="{{ $item->latestComment->user->profile_image
                                     ? asset('storage/' . $item->latestComment->user->profile_image)
                                     : asset('images/deforlt-user.png') }}" alt="プロフィール画像" class="comment-user-icon">
+                                    @else
+                                        <span>画像なし</span>
+                                    @endif
                                 </div>
                                 <div class="comment-user-name">
                                     <span>
-                                        {{ $item->latestComment->user->name }}
+                                        {{ $item->latestComment->user->name ?? '名前なし' }}
                                     </span>
                                 </div>
-                             </div>
-                             <div class="comment-body">
-                                {{ $item->latestComment->comment }}
-                             </div>
+                            </div>
+                            <div class="comment-body">
+                               {{ $item->latestComment->comment ?? 'コメントはまだありません' }}
+                            </div>
                         </div>
-                    @endif
+                    <!-- @endif -->
 
                 </div>
 
@@ -130,7 +138,12 @@
                 <form action="{{ route('items.comment', ['item_id' => $item->id]) }}" method="post">
                     @csrf
                     <div class="item-detail__comment-textarea">
-                        <textarea name="comment" id="4" required></textarea>
+                        <textarea name="comment" id="4"></textarea>
+                    </div>
+                    <div class="form__error">
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
                     </div>
 
                     <div class="item-detail__comment-btn">
@@ -139,8 +152,14 @@
                 </form>
                 @else
                     <div class="item-detail__comment-textarea">
-                        <textarea id="comment-guest" required></textarea>
+                        <textarea name="comment" id="comment-guest"></textarea>
                     </div>
+                    <div class="form__error">
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
+                    </div>
+
                     <div class="item-detail__comment-btn">
                         <a href="/login">コメントを送信する</a>
                     </div>

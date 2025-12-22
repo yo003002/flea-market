@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
+
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Address;
@@ -42,12 +44,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $item_id)
+    public function store(CommentRequest $request, $item_id)
     {
-        //後で消す
-        $request->validate([
-            'comment' => 'required|string|max:255',
-        ]);
+
 
         Comment::create([
             'user_id' => auth()->id(),

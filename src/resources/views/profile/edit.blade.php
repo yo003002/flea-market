@@ -33,6 +33,11 @@
                 <label for="profile_image" class="custom-label">画像を選択する</label>
                 <input id="profile_image" type="file" name="profile_image" class="custum-input">
             </div>
+            <div class="form__error">
+                @error('profile_image')
+                {{ $message }}
+                @enderror
+            </div>
 
             
         </div>
@@ -45,6 +50,11 @@
         <div class="edit-form__name-input">
             <input type="text" name="name" value="{{ old('name', $user->name) }}">
         </div>
+        <div class="form__error">
+            @error('name')
+            {{ $message }}
+            @enderror
+        </div>
 
         <div class="edit-form__postal-code-title">
             <p>郵便番号</p>
@@ -52,12 +62,22 @@
         <div class="edit-form__postal-code-input">
             <input type="text" name="postal_code" value="{{ old('postal_code', $address->postal_code ?? '') }}">
         </div>
+        <div class="form__error">
+            @error('postal_code')
+            {{ $message }}
+            @enderror
+        </div>
 
         <div class="edit-form__address-title">
             <p>住所</p>
         </div>
         <div class="edit-form__address-input">
             <input type="text" name="address" value="{{ old('address', $address->address ?? '') }}">
+        </div>
+        <div class="form__error">
+            @error('address')
+            {{ $message }}
+            @enderror
         </div>
 
         <div class="edit-form__building-title">

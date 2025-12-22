@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PurchaseRequest;
 
 use App\Models\Address;
 use App\Models\Category;
@@ -31,6 +33,14 @@ class PurchaseController extends Controller
     public function confirm($item_id)
     {
         $item = Item::with('images')->findOrFail($item_id);
+
+        if ($item->user_id === Auth::id()) {
+            abort(403, '自分の商品は購入できません');
+        }
+
+        if ($item->status === 'sold') {
+            abort(404)
+;        }
 
         $address = Address::where('user_id', Auth::id())->first();
 
@@ -59,22 +69,22 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $item_id)
-    {
-        //
-        $request->validate([
-            'pay_method' => 'required|string',
-        ]);
+    // public function store(Request $request, $item_id)
+    // {
+    //     //
+    //     $request->validate([
+    //         'pay_method' => 'required|string',
+    //     ]);
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item_id,
-            'address_id' => Address::where('user_id', Auth::id())->first()->id,
-            'pay_method' => $request->pay_method,
-        ]);
+    //     Purchase::create([
+    //         'user_id' => Auth::id(),
+    //         'item_id' => $item_id,
+    //         'address_id' => Address::where('user_id', Auth::id())->first()->id,
+    //         'pay_method' => $request->pay_method,
+    //     ]);
 
-        return redirect('/mypage');
-    }
+    //     return redirect('/mypage');
+    // }
 
     /**
      * Display the specified resource.
@@ -84,7 +94,7 @@ class PurchaseController extends Controller
      */
 
     //決済
-    public function checkout(Request $request, $item_id)
+    public function checkout(PurchaseRequest $request, $item_id)
     {
         //
         $item = Item::findOrFail($item_id);
@@ -118,31 +128,49 @@ class PurchaseController extends Controller
     }
 
 
-    //仮
+    //
     public function success($item_id)
     {
         $user = Auth::user();
-        $item = Item::findOrFail($item_id);
+        $item = Item::where('status', 'selling')->findOrFail($item_id);
+
+        if ($item->user_id === $user->id) {
+            abort(403);
+        }
 
         //住所を所得
         $address = $user->address;
 
         if (!$address) {
-            return redirect('/')
-                ->with('error', '住所が登録されていません');
+            abort(400, '住所がありません');
         }
 
+        DB::transaction(function () use ($user, $item_id, $address) {
 
-        Purchase::create([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-            'address_id' => $address->id,
-            'pay_method' => session('pay_method'),
-        ]);
+            $item = Item::where('id', $item_id)
+                ->where('status', 'selling')
+                ->lockForUpdate()
+                ->firstOrFail();
 
-        $item->update([
-            'status' => 'sold',
-        ]);
+            if ($item->user_id === $user->id) {
+                abort(403);
+            }
+
+            if ($item->purchase()->exists()) {
+                abort(409);
+            }
+            
+            Purchase::create([
+                'user_id' => $user->id,
+                'item_id' => $item->id,
+                'address_id' => $address->id,
+                'pay_method' => session('pay_method'),
+            ]);
+
+            $item->update([
+                'status' => 'sold',
+            ]);
+        });
 
         return redirect('/');
     }

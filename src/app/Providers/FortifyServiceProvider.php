@@ -14,6 +14,10 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use App\Http\Requests\LoginRequest;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,9 +36,9 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::createUsersUsing(CreateNewUser::class);
 
-        // Fortify::registerView(function () {
-        //     return view('auth.register');
-        // });
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
 
         Fortify::loginView(function () {
             return view('auth.login');
@@ -72,5 +76,25 @@ class FortifyServiceProvider extends ServiceProvider
                 }
             };
         });
+
+        Fortify::authenticateUsing(function (Request $request) {
+
+            $loginRequest = LoginRequest::createFrom($request); $loginRequest->setContainer(app()); $loginRequest->setRedirector(app('redirect'));
+
+            $loginRequest->validateResolved();
+
+
+            if (!Auth::attempt(
+                $request->only('email', 'password'), $request->boolean('remember')
+            )) {
+                    throw ValidationException::withMessages([
+                        'email' => 'ログイン情報が登録されていません',
+                ]);
+            }
+
+            return Auth::user();
+        });
     }
+
+
 }

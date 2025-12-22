@@ -31,14 +31,20 @@
                 <p>支払い方法</p>
             </div>
             <div class="purchase-item__payment-select">
-                <select name="pay_method" id="pay_method" class="custom-select selected" required>
+                <select name="pay_method" id="pay_method" class="custom-select selected" >
                 <option value="" disabled selected hidden>選択してください</option>
                 <option value="コンビニ払い">コンビニ払い</option>
                 <option value="カード払い">カード払い</option>
             </select>
+            <div class="form__error">
+                @error('pay_method')
+                {{ $message }}
+                @enderror
+            </div>
             <p>todo選択中のカラーを調整する</p>
             </div>
         </div>
+
         <div class="purchase-item__delivery">
             <div class="purchase-item__delivary-inner">
                 <div class="purchase-item__deliver-title">
@@ -59,6 +65,12 @@
                     <p>住所が登録されていません</p>
                 @endif
             </div>
+            <div class="form__error">
+                @error('address')
+                {{ $message }}
+                @enderror
+            </div>
+
         </div>
     </div>
 

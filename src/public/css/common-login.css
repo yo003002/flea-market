@@ -4,8 +4,7 @@
 
 .header__inner {
     margin: 0 auto;
-    padding: 10px 10px;
-    max-width: 1230px;
+    padding: 15px 30px;
 }
 
 .header__logo img {
@@ -13,3 +12,4 @@
     width: 300px;
     height: auto;
 }
+

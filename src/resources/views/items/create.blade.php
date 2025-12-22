@@ -20,6 +20,14 @@
             <label for="images" class="sell-item-label">画像を選択する</label>
             <input id="images" type="file" name="images[]" multiple accept="image/*" class="sell-item-input">
         </div>
+        <div class="form__error">
+            @error('images')
+            {{ $message }}
+            @enderror
+            @error('images.*')
+            {{ $message }}
+            @enderror
+        </div>
 
         <div id="preview-area" class="preview-area"></div>
 
@@ -38,12 +46,17 @@
                 @endforeach
             </p>
         </div>
+        <div class="form__error">
+            @error('category_ids[]')
+            {{ $message }}
+            @enderror
+        </div>
 
         <div class="sell-item__status-title">
             <p>商品の状態</p>
         </div>
         <div class="sell-item__status">
-            <select name="condition" id="condition" class="custom-select selected" required>
+            <select name="condition" id="condition" class="custom-select selected">
                 <option value="" disabled selected hidden>選択してください</option>
                 <option value="良好">良好</option>
                 <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
@@ -51,6 +64,11 @@
                 <option value="状態が悪い">状態が悪い</option>
             </select>
             <p>todo選択中のカラーを調整する</p>
+        </div>
+        <div class="form__error">
+            @error('condition')
+            {{ $message }}
+            @enderror
         </div>
 
         <div class="sell-item__name-explain-title">
@@ -62,6 +80,11 @@
         </div>
         <div class="sell-item__name-input">
             <input type="text" name="title">
+        </div>
+        <div class="form__error">
+            @error('title')
+            {{ $message }}
+            @enderror
         </div>
 
         <div class="sell-item__brand-name-title">
@@ -77,12 +100,22 @@
         <div class="sell-item__explain-textarea">
             <textarea name="description" id=""></textarea>
         </div>
+        <div class="form__error">
+            @error('description')
+            {{ $message }}
+            @enderror
+        </div>
 
         <div class="sell-item__price-title">
             <p>販売価格</p>
         </div>
         <div class="sell-item__price-input">
             <input type="text" name="price" id="price" value="￥">
+        </div>
+        <div class="form__error">
+            @error('price')
+            {{ $message }}
+            @enderror
         </div>
 
         <div class="sell-item__btn">

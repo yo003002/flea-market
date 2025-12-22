@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     //購入
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
 
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    // Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
     Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
 
@@ -72,6 +72,3 @@ Route::middleware('auth')->group(function () {
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
-Route::get('/register', function () {
-    return view('auth.register');
-});

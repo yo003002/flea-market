@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExhibitionRequest;
+
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Address;
@@ -26,7 +28,7 @@ class ItemController extends Controller
 
         //ログイン→オススメは自分以外の商品表示
         //未ログイン→全商品表示
-        $recommendedQuery = Item::with('images')
+        $recommendedQuery = Item::with('images', 'latestComment.user')
             ->when(auth()->check(), function ($query) {
                 $query->where('user_id', '!=', auth()->id());
             });
@@ -52,7 +54,7 @@ class ItemController extends Controller
             if (!empty($keyword)) {
                 $mylistQuery->where('title', 'like', '%' . $keyword . '%');
             }
-            
+        
             $mylistItems = $mylistQuery->get();
         }
 
@@ -77,7 +79,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
 
         $request->merge([
@@ -85,28 +87,14 @@ class ItemController extends Controller
         ]);
 
 
-
-        //後で消す
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'brand_name' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|integer|min:0',
-            'category_ids' => 'required|array',
-            'category_ids.*' => 'exists:categories,id',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'condition' => 'required|string',
-        ]);
-
-
         //商品情報の保存
         $item = new Item();
         $item->user_id = auth()->id();
-        $item->title = $validated['title'];
-        $item->brand_name = $validated['brand_name'] ?? null;
-        $item->description = $validated['description'];
-        $item->condition = $validated['condition'];
-        $item->price = $validated['price'];
+        $item->title = $request->title;
+        $item->brand_name = $request->brand_name ?? null;
+        $item->description = $request->description;
+        $item->condition = $request->condition;
+        $item->price = $request->price;
         $item->status = 'selling';
         $item->save();
 
@@ -116,8 +104,8 @@ class ItemController extends Controller
         //     $item->categories()->attach($request->category_ids);
         // }
         
-        if (!empty($validated['category_ids'])) {
-            $item->categories()->attach($validated['category_ids']);
+        if (!empty($request->category_ids)) {
+            $item->categories()->attach($request->category_ids);
         }
 
         //複数画像の保存

@@ -18,7 +18,7 @@
                 <nav>
                     <ul class="header-nav">
                         <li class="header-nav__item-search">
-                            <form action="{{ route('items.index') }}" method="GET">
+                            <form action="{{ route('items.index') }}" method="GET" class="form">
                                 <input type="hidden" name="tab" value="{{ request('tab') }}">
                                 <input 
                                 class="header-nav__search-input" type="text" 

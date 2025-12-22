@@ -20,6 +20,12 @@
                 <input type="text" name="postal_code" value="{{ old('address', $address->postal_code ?? '') }}">
             </div>
         </div>
+        <div class="form__error">
+            @error('postal_code')
+            {{ $message }}
+            @enderror
+        </div>
+
         <div class="address-form__inner">
             <div class="address-form__title">
                 <p>住所</p>
@@ -28,6 +34,12 @@
                 <input type="text" name="address" value="{{ old('address', $address ?? '') }}">
             </div>
         </div>
+        <div class="form__error">
+            @error('address')
+            {{ $message }}
+            @enderror
+        </div>
+
         <div class="address-form__inner">
             <div class="address-form__title">
                 <p>建物名</p>
