@@ -8,6 +8,7 @@ use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 
 use App\Models\Address;
 use App\Models\Category;
@@ -50,7 +51,7 @@ class PurchaseController extends Controller
     public function address()
     {
 
-        return view('purchase.address');
+       
     }
 
     /**
@@ -197,14 +198,9 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AddressRequest $request, $item_id)
     {
-        //
-        $request->validate([
-            'postal_code' => 'required|string',
-            'address' => 'required|string',
-            'building' => 'required|string',
-        ]);
+
 
         $address = Address::where('user_id', Auth::id())->firstOrFail();
 

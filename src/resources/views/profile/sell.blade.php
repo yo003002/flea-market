@@ -44,6 +44,10 @@
                     @foreach($items as $item)
                         <li class="sell-item-card">
                             <a href="{{ route('items.show', $item->id) }}">
+                                @if($item->status === 'sold')
+                                        <div class="sold-badge">sold</div>
+                                @endif
+
                                 @if($item->images->isNotEmpty())
                                     <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="">
                                 @else

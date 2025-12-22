@@ -86,6 +86,9 @@
 .sell-item-card {
     width: calc(25% - 20px);
     list-style: none;
+    position: relative;
+    overflow: hidden; /* はみ出した部分をカット */
+    
 }
 
 .sell-item-card a {
@@ -108,3 +111,20 @@
     transform: scale(1.03);
 }
 
+.sold-badge {
+    position: absolute;
+    top: 16px;
+    left: -40px;
+    width: 160px;
+    text-align: center;
+
+    background: red;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 6px 0;
+
+    transform: rotate(-45deg);
+    z-index: 10;
+
+}

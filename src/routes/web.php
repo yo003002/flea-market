@@ -39,36 +39,39 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
     
-    //出品
-    Route::get('/sell', [ItemController::class, 'create']);
-
-    Route::post('/sell', [ItemController::class, 'store']);
     
-
-    //プロフィール
-    Route::get('/mypage', [ProfileController::class, 'index']);
-
-    Route::get('/mypage/sell', [ProfileController::class, 'sold']);
-
-
-    //購入
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
-
-    // Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
-
-    Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
-
-    Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
-
-
-    //住所変更
-    Route::get('/purchase/{item_id}/address', 
-    [PurchaseController::class, 'address'])->name('purchase.address');
-
-    Route::get('/purchase/{item_id}/address', 
-    [PurchaseController::class, 'editAddress'])->name('purchase.address');
-
-    Route::post('/purchase/{item_id}/address', 
-    [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+    
+    
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    //出品
+    Route::get('/sell', [ItemController::class, 'create']);
+    
+    Route::post('/sell', [ItemController::class, 'store']);
+    
+    //購入
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
+    
+    // Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    
+    Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
+    
+    Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
+    
+    //プロフィール
+    Route::get('/mypage', [ProfileController::class, 'index']);
+    Route::get('/mypage/sell', [ProfileController::class, 'sold']);
+    
+    //住所変更
+    // Route::get('/purchase/{item_id}/address', 
+    // [PurchaseController::class, 'address'])->name('purchase.address');
+    
+    Route::get('/purchase/{item_id}/address', 
+    [PurchaseController::class, 'editAddress'])->name('purchase.address');
+    
+    Route::post('/purchase/{item_id}/address', 
+    [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+    
+});
