@@ -23,7 +23,7 @@ class LikeController extends Controller
         if ($item->isLikeBy($user)) {
             //いいね解除
             $item->likes()->where('user_id', $user->id)->delete();
-            return back()->with('status', 'unlliked');
+            return back()->with('status', 'unliked');
         }
 
         //いいね追加

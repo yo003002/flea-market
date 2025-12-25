@@ -44,7 +44,7 @@ class Item extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function isLikeBy($user): bool
+    public function isLikeBy($user)
     {
         if (!$user) {
             return false;

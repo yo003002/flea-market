@@ -93,24 +93,32 @@ class PurchaseController extends Controller
             'pay_method' => $request->pay_method
         ]);
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        if ($request->pay_method === 'credit_card') {
 
-        $session = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'jpy',
-                    'product_data' => [
-                        'name' => $item->title,
+            Stripe::setApiKey(config('services.stripe.secret'));
+
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'jpy',
+                        'product_data' => [
+                            'name' => $item->title,
+                        ],
+                        'unit_amount' => $item->price,
                     ],
-                    'unit_amount' => $item->price,
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => route('purchase.success', $item->id),
-        ]);
-            return redirect($session->url);
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => route('purchase.success', $item->id),
+            ]);
+                return redirect($session->url);
+        }
+
+        if ($request->pay_method === 'convenience') {
+            return redirect()->route('purchase.success', $item->id);
+        }
+
     }
 
 
@@ -183,6 +191,8 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // 住所変更
     public function updateAddress(AddressRequest $request, $item_id)
     {
 

@@ -41,13 +41,19 @@
         <div class="sell-item__category">
             <p>
                 @foreach($categories as $category)
-                    <input class="category-checkbox" type="checkbox" id="category{{ $category->id }}" name="category_ids[]" value="{{ $category->id }}">
+                    <input 
+                    class="category-checkbox" 
+                    type="checkbox" 
+                    id="category{{ $category->id }}" 
+                    name="category_ids[]" 
+                    value="{{ $category->id }}"
+                    {{ in_array($category->id, old('category_ids', [])) ? 'checked' : '' }}>
                     <label class="category-label" for="category{{ $category->id }}">{{ $category->name }}</label>
                 @endforeach
             </p>
         </div>
         <div class="form__error">
-            @error('category_ids[]')
+            @error('category_ids')
             {{ $message }}
             @enderror
         </div>
@@ -63,7 +69,6 @@
                 <option value="やや傷や汚れあり">やや傷や汚れあり</option>
                 <option value="状態が悪い">状態が悪い</option>
             </select>
-            <p>todo選択中のカラーを調整する</p>
         </div>
         <div class="form__error">
             @error('condition')
@@ -126,40 +131,40 @@
  @endsection
 
  @push('scripts')
- <script>
+<script>
     const priceInput = document.getElementById('price');
 
-    priceInput.addEventListener('click', function () {
-        
-        if (this.selectionStart < 1) {
-            this.setSelectionRange(1, 1);
+    // ￥がなければ付ける
+    priceInput.addEventListener('focus', function () {
+        if (this.value === '') {
+            this.value = '￥';
         }
+        this.setSelectionRange(this.value.length, this.value.length);
     });
 
-     priceInput.addEventListener('input', function (e) {
-
-        let value = e.target.value;
-
-        if (!value.startsWith('￥')) {
-            value = '￥' + value.replace(/[^\d]/g, '');
-        }
-         
-        value = value.replace(/[^\d]/g, '');
+    priceInput.addEventListener('input', function (e) {
         
-        if (value === '') {
-         e.traget.value = '￥';
+        let raw = e.target.value.replace(/[^\d０-９]/g, '');
+
+        if (raw === '') {
+            e.target.value = '￥';
             return;
         }
 
-        let formatted = Number(value).toLocaleString();
+        //  表示用に「半角数字だけ」取り出す
+        const halfWidthOnly = raw.replace(/[０-９]/g, '');
+
+        // 半角数字があるときだけカンマ
+        let formatted = halfWidthOnly !== ''
+            ? Number(halfWidthOnly).toLocaleString()
+            : raw;
 
         e.target.value = '￥' + formatted;
 
-        if (e.target.selectionStart < 1) {
-            e.target.setSelectionRange(1, 1);
-        }
+        // カーソルは常に末尾
+        e.target.setSelectionRange(e.target.value.length, e.target.value.length);
     });
- </script>
+</script>
 
  <script>
     document.getElementById('images').addEventListener('change', function(e) {

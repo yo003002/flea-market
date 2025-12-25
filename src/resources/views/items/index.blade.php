@@ -28,7 +28,7 @@
                             ? asset('storage/' . $item->images->first()->image_path)
                             : asset('images/no-image.png') }}" alt="{{ $item->name }}">
 
-                            <p>{{ $item->name }}</p>
+                            <p>{{ $item->title }}</p>
                         </a>
                     </div>
                 @empty
@@ -48,7 +48,7 @@
                             ? asset('storage/' . $item->images->first()->image_path)
                             : asset('images/no-image.png') }}" alt="{{ $item->name }}">
 
-                        <p>{{ $item->name }}</p>
+                        <p>{{ $item->title }}</p>
                     </a>
                 </div>
             @endforeach

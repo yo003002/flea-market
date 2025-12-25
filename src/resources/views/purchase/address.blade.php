@@ -1,4 +1,4 @@
-<!-- 送付先住所変更画面  /purchase/address/{item_id} -->
+<!-- 送付先住所変更画面  /purchase/{item_id}/address -->
  @extends('layouts.app')
 
  @section('css')
@@ -17,7 +17,7 @@
                 <p>郵便番号</p>
             </div>
             <div class="address-form__input">
-                <input type="text" name="postal_code" value="{{ old('address', $address->postal_code ?? '') }}">
+                <input type="text" name="postal_code" value="{{ old('postal_code', $address->postal_code ?? '') }}">
             </div>
         </div>
         <div class="form__error">
@@ -31,7 +31,7 @@
                 <p>住所</p>
             </div>
             <div class="address-form__input">
-                <input type="text" name="address" value="{{ old('address', $address ?? '') }}">
+                <input type="text" name="address" value="{{ old('address', $address->address ?? '') }}">
             </div>
         </div>
         <div class="form__error">

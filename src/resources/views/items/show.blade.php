@@ -1,4 +1,4 @@
-<!-- 商品詳細画面  /item/{item_id} -->
+<!-- 商品詳細画面  /items/{item_id} -->
 
  @extends('layouts.app')
 
@@ -41,9 +41,9 @@
                             @csrf
                             <button class="item-detail__heart-btn" type="submit">
                                 @if(auth()->check() && $item->isLikeBy(auth()->user()))
-                                    <img src="{{ asset('images/ハートロゴ_ピンク.png') }}" alt="">
+                                    <img src="{{ asset('images/heart_pink.png') }}" alt="">
                                 @else
-                                    <img src="{{ asset('images/ハートロゴ_デフォルト.png') }}" alt="">
+                                    <img src="{{ asset('images/heart_default.png') }}" alt="">
                                 @endif
                             </button>
                         </form>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="item-detail__comment">
                         <div class="item-detail__comment-logo">
-                            <img src="{{ asset('images/ふきだしロゴ.png') }}" alt="コメントロゴ">
+                            <img src="{{ asset('images/comment_icon.png') }}" alt="コメントロゴ">
                         </div>
                         <p class="item-detail__comment-count">
                             {{ $item->comments->count() }}
@@ -105,6 +105,7 @@
                         コメント({{ $item->comments->count() }})
                     </p>
                     
+                    @if ($item->latestComment)
                         <div class="comment-item">
                             <div class="comment-item-wrap">
                                 <div class="comment-user">
@@ -118,14 +119,15 @@
                                 </div>
                                 <div class="comment-user-name">
                                     <span>
-                                        {{ $item->latestComment->user->name ?? '名前なし' }}
+                                        {{ $item->latestComment->user->name  }}
                                     </span>
                                 </div>
                             </div>
                             <div class="comment-body">
-                               {{ $item->latestComment->comment ?? 'コメントはまだありません' }}
+                               {{ $item->latestComment->comment  }}
                             </div>
                         </div>
+                    @endif
                 </div>
 
                 <div class="item-detail__comment-title">

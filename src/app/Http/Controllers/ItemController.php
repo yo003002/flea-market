@@ -25,6 +25,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
+        $tab = $request->tab;
 
         //ログイン→オススメは自分以外の商品表示
         //未ログイン→全商品表示
@@ -45,7 +46,7 @@ class ItemController extends Controller
         //マイリスト（いいねした商品）
         $mylistItems = collect();
 
-        if (auth()->check()) {
+        if ($tab === 'mylist' && auth()->check()) {
             $mylistQuery = auth()->user()
                 ->likedItems()
                 ->wherePivot('is_favorite', true)
@@ -60,6 +61,7 @@ class ItemController extends Controller
 
         return view('items.index', compact('recommendedItems', 'mylistItems', 'keyword'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,9 +84,10 @@ class ItemController extends Controller
     public function store(ExhibitionRequest $request)
     {
 
-        $request->merge([
-            'price' => preg_replace('/[^\d]/', '', $request->price),
-        ]);
+        // $request->merge([
+        //     'price' => preg_replace('/[^\d]/', '', $request->price),
+        // ]);
+        $price = preg_replace('/[^\d]/', '', $request->price);
 
 
         //商品情報の保存
@@ -95,14 +98,12 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->condition = $request->condition;
         $item->price = $request->price;
+        // $item->price = $price;
         $item->status = 'selling';
         $item->save();
 
 
-        // //カテゴリ（複数）保存
-        // if ($request->has('category_ids')) {
-        //     $item->categories()->attach($request->category_ids);
-        // }
+
         
         if (!empty($request->category_ids)) {
             $item->categories()->attach($request->category_ids);

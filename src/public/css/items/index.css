@@ -38,6 +38,11 @@
     overflow: hidden; /* はみ出した部分をカット */
 }
 
+.item-image p {
+    margin-top: 0;
+    font-weight: bold;
+}
+
 .sold-badge {
     position: absolute;
     top: 16px;

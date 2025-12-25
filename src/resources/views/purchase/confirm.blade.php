@@ -32,16 +32,15 @@
             </div>
             <div class="purchase-item__payment-select">
                 <select name="pay_method" id="pay_method" class="custom-select selected" >
-                <option value="" disabled selected hidden>選択してください</option>
-                <option value="コンビニ払い">コンビニ払い</option>
-                <option value="カード払い">カード払い</option>
-            </select>
-            <div class="form__error">
-                @error('pay_method')
-                {{ $message }}
-                @enderror
-            </div>
-            <p>todo選択中のカラーを調整する</p>
+                    <option value="" disabled selected hidden>選択してください</option>
+                    <option value="convenience">コンビニ払い</option>
+                    <option value="credit_card">カード払い</option>
+                </select>
+                <div class="form__error">
+                    @error('pay_method')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
         </div>
 
@@ -105,8 +104,14 @@
         const select = document.getElementById('pay_method');
         const display = document.getElementById('selected-pay-method');
 
+        const payMethodLabels = {
+            'convenience': 'コンビニ払い',
+            'credit_card': 'カード払い'
+        };
+
         select.addEventListener('change', function () {
-            display.textContent = select.value;
+            const selectedValue = select.value;
+            display.textContent = payMethodLabels[selectedValue] || '未選択';
         });
     });
  </script>

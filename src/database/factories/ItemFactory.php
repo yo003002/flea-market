@@ -19,13 +19,14 @@ class ItemFactory extends Factory
     {
         return [
             //
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => User::factory(),
             'title' => $this->faker->word(),
             'brand_name' => $this->faker->company(),
             'description' => $this->faker->sentence(10),
             'condition' => $this->faker->randomElement([
                 ''
-            ])
+            ]),
+            'price' => $this->faker->numberBetween(100, 10000),
         ];
     }
 }

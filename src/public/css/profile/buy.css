@@ -94,6 +94,10 @@
     color: #000;
 }
 
+.sold-item-card p {
+    margin-top: 0;
+    font-weight: bold;
+} 
 
 /* 画像 */
 .sold-item-card img {

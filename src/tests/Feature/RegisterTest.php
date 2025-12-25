@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class RegisterTest extends TestCase
 {
@@ -17,7 +18,7 @@ class RegisterTest extends TestCase
 
     use RefreshDatabase;
 
-    
+    // 名前が未入力のバリデーション
     public function test_name_is_required()
     {
         $response = $this->get('/register');
@@ -31,9 +32,14 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['name']);
+
+        $response = $this->get('/register');
+
+        $response->assertSee('お名前を入力してください');
     }
 
     
+    // メールが未入力のバリデーション
     public function test_email_is_required()
     {
         $response = $this->get('/register');
@@ -47,9 +53,14 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
+
+        $response = $this->get('/register');
+
+        $response->assertSee('メールアドレスを入力してください');
     }
 
     
+    // パスワードが未入力のバリデーション
     public function test_password_is_required()
     {
         $response = $this->get('/register');
@@ -63,9 +74,14 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
+
+        $response = $this->get('/register');
+
+        $response->assertSee('パスワードを入力してください');
     }
 
 
+    // パスワードが７文字以下のバリデーション
     public function test_password_must_be_at_least_8_characters()
     {
         $response = $this->get('/register');
@@ -79,8 +95,13 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
+
+        $response = $this->get('/register');
+
+        $response->assertSee('パスワードは８文字以上で入力してください');
     }
 
+    // パスワードが一致しない時のバリデーション
     public function test_password_confirmed()
     {
         $response = $this->get('/register');
@@ -94,8 +115,13 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
+
+        $response = $this->get('/register');
+
+        $response->assertSee('パスワードと一致しません');
     }
 
+    // 正しく入力した後正常に動くか
     public function test_user_can_register_successflly()
     {
         $response = $this->get('/register');

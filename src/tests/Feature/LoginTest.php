@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class LoginTest extends TestCase
 {
@@ -16,6 +17,7 @@ class LoginTest extends TestCase
 
     use RefreshDatabase;
 
+    // メールアドレスが未入力のバリデーション
     public function test_email_is_required_for_login()
     {
         $response = $this->get('/login');
@@ -27,8 +29,14 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
+
+        $response = $this->get('/login');
+
+        $response->assertSee('メールアドレスを入力してください');
     }
 
+
+    // パスワードが未入力のバリデーション
     public function test_passwird_is_required_for_login()
     {
         $response = $this->get('/login');
@@ -40,8 +48,13 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
+
+        $response = $this->get('/login');
+
+        $response->assertSee('パスワードを入力してください');
     }
 
+    // 入力情報が間違っている場合のバリデーション
     public function test_login_fails_whis_unregistered_email()
     {
         $response = $this->get('/login');
@@ -54,9 +67,14 @@ class LoginTest extends TestCase
 
         $response->assertSessionHasErrors(['email']);
 
+        $response = $this->get('/login');
+
+        $response->assertSee('ログイン情報が登録されていません');
+
         $this->assertGuest();
     }
 
+    // 正しい情報入力後→ログインできるか
     public function test_user_can_login_succesfully()
     {
         $user = \App\Models\User::factory()->create([

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_favorite')->default(false);
             $table->timestamps();
 
-            $table->unique(['user_id', 'item_id']); //二重いいね防止
+            $table->unique(['user_id', 'item_id']); 
         });
     }
 

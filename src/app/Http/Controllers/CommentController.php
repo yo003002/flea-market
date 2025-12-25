@@ -46,8 +46,6 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request, $item_id)
     {
-
-
         Comment::create([
             'user_id' => auth()->id(),
             'item_id' => $item_id,

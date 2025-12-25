@@ -20,10 +20,10 @@ use App\Http\Controllers\CommentController;
 */
 
 
+
+
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
-
-
 
 Route::middleware('auth')->group(function () {
     
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/items/{item_id}/like', [LikeController::class, 'store'])->name('items.like');
 
     //コメント
-    Route::post('items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
+    Route::post('/items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
 
     
     //プロフィール編集
