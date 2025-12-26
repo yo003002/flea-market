@@ -7,17 +7,15 @@
 github よりソースを取得する
 
 ```
-git clone https://github.com/teppei-github/laravel-template.git
+git clone https://github.com/yo003002/flea-market.git
 ```
 
 階層を変更する
 
 ```
-cd laravel-template
+cd flea-market
 ```
 
-laravel のプロジェクト名に、フォルダ名を変換する
-（例 laravel-template → laravel-basic 等）
 
 ### ② docker compose
 
@@ -34,17 +32,7 @@ https://www.docker.com/get-started/
 > **もし docker compose が動かない場合**
 > docker-compose に読み替えて実行してみてください。
 
-#### laravel バージョン 9 の場合
 
-`composer create-project "laravel/laravel=9.*" .`
-
-#### laravel バージョン 10 の場合
-
-`composer create-project "laravel/laravel=10.*" .`
-
-#### laravel バージョン 11 の場合
-
-`composer create-project "laravel/laravel=11.*" .`
 
 ```
 もし、  
@@ -58,13 +46,7 @@ Project directory "/var/www/." is not empty.
 
 ### ③ laravel の環境を修正
 
-#### `config/app.php` の timezone を修正
 
-```
-'timezone' => 'UTC',
-↓
-'timezone' => 'Asia/Tokyo',
-```
 
 #### `.env` の修正
 
@@ -72,15 +54,19 @@ DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD の値を変更
 
 [![Image from Gyazo](https://i.gyazo.com/2a9477db28b24ca194ac6e3d69aafd58.png)](https://gyazo.com/2a9477db28b24ca194ac6e3d69aafd58)
 
-#### npm の実行
+### keyの作成
+- php artisan key:generate
 
-package の変更があった場合、_src_ フォルダで `npm install` を実行する
+### DATABASEの作成
+- php atisan migrate
+- php artisan db:seed
 
-```
-cd src
-npm install
-npm run build
-```
+### storageの接続
+- php artisan storage:link
+
+### STRIPEの設定
+- STRIPE_SECRET=｛　ここは自身で設定してください　｝
+
 
 ### ④ laravel のテスト環境を作成
 
@@ -107,7 +93,7 @@ cp .env .env.testing
 ```
 APP_NAME=Laravel
 - APP_ENV=local
-- APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJ+jvmnzjYMaUf7d5iuB+c=
+- APP_KEY=xxxxxxxxxx
 + APP_ENV=test
 + APP_KEY=
 APP_DEBUG=true
