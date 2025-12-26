@@ -40,8 +40,8 @@ Project directory "/var/www/." is not empty.
 というエラーが出たら、srcフォルダの中の .gitkeep は削除して、再度実行してください。  
 ```
 
-
  Your requirements could not be resolved to an installable set of packages.　で弾かれた場合、下記のコードでblock-insecure を無効にして、再度ダウンロードする
+ 
 `composer config --global audit.block-insecure false`
 
 
