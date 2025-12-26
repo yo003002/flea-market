@@ -42,10 +42,6 @@ Route::middleware('auth')->group(function () {
     
     
     
-});
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    
     //出品
     Route::get('/sell', [ItemController::class, 'create']);
     
@@ -54,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //購入
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
     
-
+    
     
     Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
     
@@ -70,5 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::post('/purchase/{item_id}/address', 
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
     
 });

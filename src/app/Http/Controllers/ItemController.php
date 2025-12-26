@@ -84,9 +84,7 @@ class ItemController extends Controller
     public function store(ExhibitionRequest $request)
     {
 
-        // $request->merge([
-        //     'price' => preg_replace('/[^\d]/', '', $request->price),
-        // ]);
+        
         $price = preg_replace('/[^\d]/', '', $request->price);
 
 
@@ -98,7 +96,6 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->condition = $request->condition;
         $item->price = $request->price;
-        // $item->price = $price;
         $item->status = 'selling';
         $item->save();
 
