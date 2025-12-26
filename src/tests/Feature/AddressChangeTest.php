@@ -34,19 +34,19 @@ class AddressChangeTest extends TestCase
 
         $item = Item::factory()->create();
 
-        $this->get("/purchase/{$item->id}/address")
+        $this->get("/purchase/address/{$item->id}")
             ->assertStatus(200)
             ->assertSee('111-1111')
             ->assertSee('新潟県新潟市')
             ->assertSee('旧マンション');
 
-        $this->post("/purchase/{$item->id}/address", [
+        $this->post("/purchase/address/{$item->id}", [
             'postal_code' => '222-2222',
             'address' => '新潟県新潟市',
             'building' => '新マンション',
         ])->assertRedirect();
 
-        $this->get("/purchase/{$item->id}/address")
+        $this->get("/purchase/address/{$item->id}")
             ->assertStatus(200)
             ->assertSee('222-2222')
             ->assertSee('新潟県新潟市')
@@ -77,7 +77,7 @@ class AddressChangeTest extends TestCase
             'status' => 'selling',
         ]);
 
-        $this->post("/purchase/{$item->id}/address", [
+        $this->post("/purchase/address/{$item->id}", [
             'postal_code' => '222-2222',
             'address' => '新潟県新潟市',
             'building' => '新マンション',

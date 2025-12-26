@@ -61,10 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/sell', [ProfileController::class, 'sold']);
     
     //住所変更
-    Route::get('/purchase/{item_id}/address', 
+    Route::get('/purchase/address/{item_id}', 
     [PurchaseController::class, 'editAddress'])->name('purchase.address');
     
-    Route::post('/purchase/{item_id}/address', 
+    Route::post('/purchase/address/{item_id}', 
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
