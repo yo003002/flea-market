@@ -59,13 +59,13 @@ DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD の値を変更
 - php artisan key:generate
 
 ### DATABASEの作成
-- php atisan migrate
+- php artisan migrate
 - php artisan db:seed
 
 ### storageの接続
 - php artisan storage:link
 
-### STRIPEの設定
+### .envにSTRIPEの設定を追加
 - STRIPE_SECRET=｛　ここは自身で設定してください　｝
 
 
