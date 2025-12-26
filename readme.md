@@ -20,7 +20,7 @@ cd flea-market
 ### ② docker compose
 
 `先ほど変更したフォルダ名がVSCodeのトップになっていることを必ず確認すること`  
-[![Image from Gyazo](https://i.gyazo.com/6de13ed9f6ab4f0fdc4d5a0b83c4f514.png)](https://gyazo.com/6de13ed9f6ab4f0fdc4d5a0b83c4f514)
+
 
 docker をインストールしていない場合は、使用中の PC に合わせてインストール  
 https://www.docker.com/get-started/
@@ -40,7 +40,8 @@ Project directory "/var/www/." is not empty.
 というエラーが出たら、srcフォルダの中の .gitkeep は削除して、再度実行してください。  
 ```
 
-#### Your requirements could not be resolved to an installable set of packages.　で弾かれた場合、下記のコードでblock-insecure を無効にして、再度ダウンロードする
+
+ Your requirements could not be resolved to an installable set of packages.　で弾かれた場合、下記のコードでblock-insecure を無効にして、再度ダウンロードする
 `composer config --global audit.block-insecure false`
 
 
