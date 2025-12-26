@@ -68,7 +68,3 @@ Route::middleware('auth')->group(function () {
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    
-    
-});

@@ -68,47 +68,6 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        //プロフィール未設定ならプロフィールへ
-        // $this->app->singleton(LoginResponse::class, function () {
-        //     return new class implements LoginResponse {
-        //         public function toResponse($request)
-        //         {
-        //             $user = $request->user();
-
-        //             if (!$user->is_profile_set) {
-        //                 return redirect('/mypage/profile');
-        //             }
-
-        //             return redirect('/');
-        //         }
-        //     };
-        // });
-
-
-
-        // メール認証機能
-        // $this->app->singleton(LoginResponse::class, function () {
-        //     return new class implements LoginResponse {
-                
-        //         public function toResponse($request)
-        //         {
-        //             $user = $request->user();
-
-        //             // メール最優先
-        //             if (! $user->hasVerifiedEmail()) {
-        //                 return redirect('/email/verify');
-        //             }
-
-        //             // プロフィール未設定
-        //             if (! $user->is_profile_set) {
-        //                 return redirect('/mypage/profile');
-        //             }
-
-        //             return redirect('/');
-        //         }
-        //     };
-        // });
-
     }
 
 }
