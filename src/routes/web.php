@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
+
+
 Route::middleware('auth')->group(function () {
     
     //いいね
@@ -34,13 +37,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
 
     
+});
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
     //プロフィール編集
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
-
+    
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
-    
-    
-    
     
     //出品
     Route::get('/sell', [ItemController::class, 'create']);
@@ -67,4 +71,3 @@ Route::middleware('auth')->group(function () {
     Route::post('/purchase/address/{item_id}', 
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
-

@@ -45,7 +45,7 @@
         <div id="preview-area" class="preview-area"></div>
 
         <div class="edit-form__name-title">
-            <p>{{ Auth::user()->name }}</p>
+            <p>ユーザー名</p>
         </div>
         <div class="edit-form__name-input">
             <input type="text" name="name" value="{{ old('name', $user->name) }}">

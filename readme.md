@@ -44,12 +44,20 @@ Project directory "/var/www/." is not empty.
  
 `composer config --global audit.block-insecure false`
 
+## Laravel のパッケージのインストール
+```
+composer install
+```
 
 ### ③ laravel の環境を修正
 
 
 
-#### `.env` の修正
+#### `.env` の作成・修正
+
+```
+cp .env.example .env
+```
 
 DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD の値を変更
 
