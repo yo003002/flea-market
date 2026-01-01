@@ -4,7 +4,7 @@
     margin: 0 auto;
 }
 
-.address-header h2 {
+.address-header h1 {
     text-align: center;
 }
 
@@ -28,6 +28,7 @@
 .address-form__title p {
     margin: 40px 0 5px 0;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .address-form__input {

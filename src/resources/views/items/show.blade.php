@@ -81,7 +81,7 @@
                 <div class="item-detail__information-status">
                     <div class="information-status__item">
                         <div class="information-status__item-title">
-                            <h4>カテゴリー</h4>
+                            <h3>カテゴリー</h3>
                         </div>
                         <div class="information-status__item-data">
                             @foreach($item->categories as $category)
@@ -91,7 +91,7 @@
                     </div>
                     <div class="information-status__item">
                         <div class="information-status__item-title">
-                            <h4>商品の状態</h4>
+                            <h3>商品の状態</h3>
                         </div>
                         <div class="information-status__item-data">
                             <p>{{ $item->condition }}</p>
@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="item-detail__comment-title">
-                    <h4>商品へのコメント</h4>
+                    <h3>商品へのコメント</h3>
                 </div>
                 @auth
                 <form action="{{ route('items.comment', ['item_id' => $item->id]) }}" method="post">

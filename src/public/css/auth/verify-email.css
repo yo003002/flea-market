@@ -11,15 +11,20 @@
     text-align: center;
 }
 
-.verify-form {
+
+.verify-resend {
     width: 160px;
     height: 40px;
     margin: 40px auto;
+    text-align: center;
 }
 
-.verify-form button {
+.verify-resend p {
+    margin: 0;
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
+    line-height: 40px;
     border: 1px solid #000;
     border-radius: 5px;
     font-weight: bold;
@@ -28,18 +33,31 @@
     cursor: pointer;
 }
 
+/* width: 100%;
+height: 100%;
+border: 1px solid #000;
+border-radius: 5px;
+font-weight: bold;
+font-size: 15px;
+background: #d9d9d9;
+cursor: pointer; */
 
-.verify-resend {
-    width: 50%;
+.verify-form {
+    width: 160px;
     height: 40px;
     margin: 40px auto;
-    text-align: center;
 }
 
-.verify-resend p {
+.verify-form button {
     text-decoration: none;
     font-size: 13px;
+    width: 100%;
+    text-align: center;
     color: #0073cc;
+    background: #fff;
     cursor: pointer;
+    border: none;
 }
+
+
 

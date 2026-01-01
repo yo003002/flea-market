@@ -22,11 +22,12 @@
 }
 
 .mypage-profile__img p {
-    line-height: 100px;
-    text-align: center;
-    width: 100px;
-    height: 100px;
     margin: 0;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
 }
 
 /* プロフィール編集ボタン */

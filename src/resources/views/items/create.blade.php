@@ -8,7 +8,7 @@
  @section('content')
  <div class="sell-content">
     <div class="sell-item__title">
-        <h2>商品の出品</h2>
+        <h1>商品の出品</h1>
     </div>
     <form action="/sell" class="sell-item__form" method="post" enctype="multipart/form-data">
         @csrf
@@ -32,7 +32,7 @@
         <div id="preview-area" class="preview-area"></div>
 
         <div class="sell-item__detail">
-            <h3>商品の詳細</h3>
+            <h2>商品の詳細</h2>
         </div>
 
         <div class="sell-item__category-title">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="sell-item__name-explain-title">
-            <h3>商品名と説明</h3>
+            <h2>商品名と説明</h2>
         </div>
 
         <div class="sell-item__name-title">

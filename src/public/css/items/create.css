@@ -9,7 +9,7 @@
     width: 40%;
 }
 
-.sell-item__title h2 {
+.sell-item__title h1 {
     text-align: center;
 }
 
@@ -101,7 +101,7 @@
     border-bottom: 1px solid #5f5f5f;
 }
 
-.sell-item__detail h3 {
+.sell-item__detail h2 {
     color: #5f5f5f;
     margin: 50px 0 5px 0;
 }
@@ -148,7 +148,7 @@
     border-bottom: 1px solid #5f5f5f;
 }
 
-.sell-item__name-explain-title h3 {
+.sell-item__name-explain-title h2 {
     color: #5f5f5f;
     margin: 10px 0 5px 0;
 }

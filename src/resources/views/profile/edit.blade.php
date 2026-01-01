@@ -8,13 +8,13 @@
  @section('content')
  <div class="edit-content">
     <div class="edit-header">
-        <h2>
+        <h1>
             @if($mode === 'first')
                 プロフィール設定
             @else
                 プロフィール編集
             @endif
-        </h2>
+        </h1>
     </div>
 
     <form action="/mypage/profile" method="post" enctype="multipart/form-data" class="edit-form">
@@ -25,7 +25,7 @@
                 @if(Auth::user() && Auth::user()->profile_image)
                 <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール画像">
                 @else
-                <p>画像未設定</p>
+                <p></p>
                 @endif
             </div>
 

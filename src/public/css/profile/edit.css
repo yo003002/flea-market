@@ -4,7 +4,7 @@
     margin: 0 auto;
 }
 
-.edit-header h2 {
+.edit-header h1 {
     text-align: center;
 }
 
@@ -34,7 +34,18 @@
     width: 100px;
 }
 
+.edit-form__img p {
+    margin: 0;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+
 .edit-form__img img {
+    margin: 0;
     border: none;
     border-radius: 50%;
     height: 100%;
@@ -85,6 +96,7 @@
 .edit-form__postal-code-title p ,
 .edit-form__address-title p ,
 .edit-form__building-title p {
+    font-size: 20px;
     font-weight: bold;
     margin: 25px 0 3px 0;
 }

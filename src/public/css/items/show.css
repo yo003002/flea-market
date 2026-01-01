@@ -127,7 +127,7 @@
     gap: 50px;
 }
 
-.information-status__item-title h4 {
+.information-status__item-title h3 {
     margin: 5px 0 15px 0;
     width: 100px;
 }
@@ -152,7 +152,7 @@
 
 
 /* 商品へのコメント */
-.item-detail__comment-title h4 {
+.item-detail__comment-title h3 {
     font-weight: bold;
     margin: 30px 0 0 0;
 }

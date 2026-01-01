@@ -13,7 +13,7 @@
             @if(Auth::user() && Auth::user()->profile_image)
                 <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール画像">
             @else
-                <p>画像未設定</p>
+                <p></p>
             @endif
         </div>
         <div class="mypage-profile__name">

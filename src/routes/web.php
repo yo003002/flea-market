@@ -30,17 +30,18 @@ Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.sho
 
 Route::middleware('auth')->group(function () {
     
-    //いいね
-    Route::post('/items/{item_id}/like', [LikeController::class, 'store'])->name('items.like');
-
-    //コメント
-    Route::post('/items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
-
+    
     
 });
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    //いいね
+    Route::post('/items/{item_id}/like', [LikeController::class, 'store'])->name('items.like');
+    
+    //コメント
+    Route::post('/items/{item_id}/comment', [CommentController::class, 'store'])->name('items.comment');
+
     //プロフィール編集
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     
