@@ -74,7 +74,13 @@ DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD の値を変更
 - php artisan storage:link
 
 ### .envにSTRIPEの設定を追加
+
+#### stripe公式でダミー決済機能作成
+- 以下のHPより登録してください
+https://stripe.com/jp?utm_campaign=APAC_JP_JA_Search_Brand_Payments-Pure_PHR-581075585&utm_medium=cpc&utm_source=bing&utm_content=&utm_term=stripe&utm_matchtype=p&utm_adposition=&utm_device=c&msclkid=b31577ff44ac1b9e19bf1ea593aeac10
+
 - STRIPE_SECRET=｛　ここは自身で設定してください　｝
+
 
 
 ### ④ laravel のテスト環境を作成
