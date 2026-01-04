@@ -131,6 +131,8 @@
  @endsection
 
  @push('scripts')
+
+ <!-- 自動で￥を付ける -->
 <script>
     const priceInput = document.getElementById('price');
 
@@ -142,12 +144,12 @@
         this.setSelectionRange(this.value.length, this.value.length);
     });
 
-    priceInput.addEventListener('input', function (e) {
+    priceInput.addEventListener('input', function (event) {
         
-        let raw = e.target.value.replace(/[^\d０-９]/g, '');
+        let raw = event.target.value.replace(/[^\d０-９]/g, '');
 
         if (raw === '') {
-            e.target.value = '￥';
+            event.target.value = '￥';
             return;
         }
 
@@ -159,32 +161,32 @@
             ? Number(halfWidthOnly).toLocaleString()
             : raw;
 
-        e.target.value = '￥' + formatted;
+        event.target.value = '￥' + formatted;
 
         // カーソルは常に末尾
-        e.target.setSelectionRange(e.target.value.length, e.target.value.length);
+        event.target.setSelectionRange(event.target.value.length, event.target.value.length);
     });
 </script>
 
+<!-- 選択した画像ファイルを表示 -->
  <script>
-    document.getElementById('images').addEventListener('change', function(e) {
+    document.getElementById('images').addEventListener('change', function(event) {
         const previewArea = document.getElementById('preview-area');
         previewArea.innerHTML = ""; 
 
-        const files = e.target.files;
+        const files = event.target.files;
 
         Array.from(files).forEach(file => {
             if (!file.type.match('image.*')) return;
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function(event) {
                 const img = document.createElement('img');
-                img.src = e.target.result;
+                img.src = event.target.result;
                 previewArea.appendChild(img);
             };
             reader.readAsDataURL(file);
         });
     });
  </script>
-
  @endpush

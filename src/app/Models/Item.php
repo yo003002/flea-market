@@ -63,12 +63,7 @@ class Item extends Model
     //コメント
     public function comments()
     {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function latestComment()
-    {
-        return $this->hasOne(Comment::class)->latestOfMany();
+        return $this->hasMany(Comment::class)->latest();
     }
 
     public function purchase()

@@ -20,10 +20,9 @@ class UserSeeder extends Seeder
         $images = [
             '240_F_1019904417_Euz3ZiXU6mm5JAc9EP3fR2s2Vfwa2e5T.jpg',
             '240_F_1378983632_gz7bV0PC1RwGNZBfwtWLUIA0gQoh6kXT.jpg',
-            '240_F_1480720556_qGlIAuUYlpZLNp5j4T8JEDWwlgtGXCTl.jpg',
         ];
 
-        User::factory(20)->create()->each(function ($user) use($images) {
+        User::factory(10)->create()->each(function ($user) use($images) {
 
             if (rand(1, 100) <= 70) {
                 $image = $images[array_rand($images)];

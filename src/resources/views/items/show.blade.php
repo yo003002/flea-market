@@ -100,36 +100,31 @@
                 </div>
 
                 <div class="item-detail__user-information">
-
                     <p class="comment-count">
                         コメント({{ $item->comments->count() }})
                     </p>
-                    
-                    @if ($item->latestComment)
+                    @foreach ($item->comments as $comment)
                         <div class="comment-item">
                             <div class="comment-item-wrap">
                                 <div class="comment-user">
-                                    @if ($item->latestComment->user->profile_image)
-                                    <img src="{{ $item->latestComment->user->profile_image
-                                    ? asset('storage/' . $item->latestComment->user->profile_image)
-                                    : asset('images/deforlt-user.png') }}" alt="プロフィール画像" class="comment-user-icon">
+                                    @if ($comment->user->profile_image)
+                                        <img src="{{ asset('storage/' . $comment->user->profile_image) }}" alt="プロフィール画像" class="comment-user-icon">
                                     @else
-                                        <span>画像なし</span>
+                                        <p></p>
                                     @endif
                                 </div>
                                 <div class="comment-user-name">
                                     <span>
-                                        {{ $item->latestComment->user->name  }}
+                                        {{ $comment->user->name  }}
                                     </span>
                                 </div>
                             </div>
                             <div class="comment-body">
-                               {{ $item->latestComment->comment  }}
+                               {{ $comment->comment  }}
                             </div>
                         </div>
-                    @endif
+                    @endforeach
                 </div>
-
                 <div class="item-detail__comment-title">
                     <h3>商品へのコメント</h3>
                 </div>
@@ -137,14 +132,13 @@
                 <form action="{{ route('items.comment', ['item_id' => $item->id]) }}" method="post">
                     @csrf
                     <div class="item-detail__comment-textarea">
-                        <textarea name="comment" id="4"></textarea>
+                        <textarea name="comment" id="comment-textarea"></textarea>
                     </div>
                     <div class="form__error">
                         @error('comment')
                         {{ $message }}
                         @enderror
                     </div>
-
                     <div class="item-detail__comment-btn">
                         <button class="item-detail__comment-btn-submit" type="submit">コメントを送信する</button>
                     </div>
@@ -158,7 +152,6 @@
                         {{ $message }}
                         @enderror
                     </div>
-
                     <div class="item-detail__comment-btn">
                         <a href="/login">コメントを送信する</a>
                     </div>

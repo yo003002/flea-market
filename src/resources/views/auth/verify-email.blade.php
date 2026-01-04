@@ -21,15 +21,5 @@
             認証メールを再送する
         </button>
     </form>
-
-    <!-- <form method="post" action="{{ route('verification.send') }}" class="verify-form">
-        @csrf
-        <button type="submit" class="verify-form__button">
-            認証はこちらから
-        </button>
-    </form>
-    <div class="verify-resend">
-        <p>認証メールを再送する</p>
-    </div> -->
 </div>
 @endsection

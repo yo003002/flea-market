@@ -117,16 +117,14 @@ class ItemSeeder extends Seeder
             ],
         ];
 
-        foreach ($users as $user) {
+        $shuffledItems = collect($items)->shuffle();
+        $max = min($users->count(), $shuffledItems->count());
 
-            // 1ユーザーあたり2〜3商品
-            $count = rand(2, 3);
+        foreach ($users->take($max) as $index => $user) {
 
-            for ($i = 0; $i < $count; $i++) {
+            $data = $shuffledItems[$index];
 
                 try {
-                    $data = $items[array_rand($items)];
-                    $status = 'selling';
 
                     $item = Item::create([
                         'user_id' => $user->id,
@@ -135,7 +133,7 @@ class ItemSeeder extends Seeder
                         'brand_name' => $data['brand_name'],
                         'description' => $data['description'],
                         'condition' => $data['condition'],
-                        'status' => $status,
+                        'status' => 'selling',
                     ]);
 
                     // カテゴリー紐づけ
@@ -165,6 +163,6 @@ class ItemSeeder extends Seeder
                     dd($e->getMessage(), $e->getFile(), $e->getLine());
                 }
             }
-        }
+        
     }
 }

@@ -29,7 +29,7 @@ class ItemController extends Controller
 
         //ログイン→オススメは自分以外の商品表示
         //未ログイン→全商品表示
-        $recommendedQuery = Item::with('images', 'latestComment.user')
+        $recommendedQuery = Item::with('images', 'comments.user')
             ->when(auth()->check(), function ($query) {
                 $query->where('user_id', '!=', auth()->id());
             });
@@ -136,8 +136,7 @@ class ItemController extends Controller
             'images',
             'categories',
             'likes',
-            'comments',
-            'latestComment.user'
+            'comments.user',
         ])->findOrFail($item_id);
 
         return view('items.show', compact('item'));
