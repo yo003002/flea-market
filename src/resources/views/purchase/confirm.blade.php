@@ -1,12 +1,12 @@
 <!-- 商品購入画面 /purchase/{item_id} -->
- @extends('layouts.app')
+@extends('layouts.app')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/purchase/confirm.css') }}">
- @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/purchase/confirm.css') }}">
+@endsection
 
- @section('content')
- <form class="purchase-content" action="{{ route('purchase.checkout', $item->id) }}" method="post">
+@section('content')
+<form class="purchase-content" action="{{ route('purchase.checkout', $item->id) }}" method="post">
     @csrf
 
     <!-- 左半分 -->
@@ -95,11 +95,11 @@
             <button class="purchase-item__btn-submit" type="submit">購入する</button>
         </div>
     </div>
- </form>
- @endsection
+</form>
+@endsection
 
- @push('scripts')
- <script>
+@push('scripts')
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const select = document.getElementById('pay_method');
         const display = document.getElementById('selected-pay-method');

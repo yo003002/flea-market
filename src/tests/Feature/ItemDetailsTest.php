@@ -21,13 +21,14 @@ class ItemDetailsTest extends TestCase
      */
 
     use RefreshDatabase;
-    
+
     // すべての情報が商品詳細ページに表示
     public function test_item_detail_page_displays_all_infomation()
     {
         $user = User::factory()->create([
             'name' => 'テストユーザー',
             'profile_image' => 'profile.png',
+            'email_verified_at' => now(),
         ]);
 
         $this->actingAs($user);
@@ -93,7 +94,9 @@ class ItemDetailsTest extends TestCase
 
     public function test_item_detail_page_display_multiple_categories()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create([

@@ -27,7 +27,9 @@ class CreateItemTest extends TestCase
     {
         Storage::fake('public');
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $categories = Category::factory()->count(2)->create();
 

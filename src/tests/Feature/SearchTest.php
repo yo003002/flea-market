@@ -55,7 +55,9 @@ class SearchTest extends TestCase
     // 検索結果がマイリストでも保持
     public function test_seach_results_are_preserved_in_mylist()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item1 = Item::factory()->create([

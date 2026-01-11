@@ -20,6 +20,7 @@ class LogoutTest extends TestCase
         $user = \App\Models\User::factory()->create([
             'email' => 'test@example.com',
             'password' => bcrypt('12345678'),
+            'email_verified_at' => now(),
         ]);
 
         $this->actingAs($user);

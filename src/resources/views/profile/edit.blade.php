@@ -1,12 +1,12 @@
 <!-- プロフィール編集画面（設定画面） /mypage/profile　-->
- @extends('layouts.app')
+@extends('layouts.app')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/profile/edit.css') }}">
- @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/profile/edit.css') }}">
+@endsection
 
- @section('content')
- <div class="edit-content">
+@section('content')
+<div class="edit-content">
     <div class="edit-header">
         <h1>
             @if($mode === 'first')
@@ -39,9 +39,9 @@
                 @enderror
             </div>
 
-            
+
         </div>
-        
+
         <div id="preview-area" class="preview-area"></div>
 
         <div class="edit-form__name-title">

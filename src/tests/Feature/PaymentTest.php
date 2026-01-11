@@ -25,7 +25,9 @@ class PaymentTest extends TestCase
 
     public function test_user_can_select_pay_method_and_it_is_saved()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $address = Address::factory()->create([

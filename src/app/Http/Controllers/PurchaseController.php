@@ -16,7 +16,6 @@ use App\Models\Item;
 use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
-use App\Models\Mylist;
 use App\Models\Purchase;
 
 class PurchaseController extends Controller
@@ -50,8 +49,6 @@ class PurchaseController extends Controller
 
     public function address()
     {
-
-       
     }
 
     /**
@@ -153,7 +150,7 @@ class PurchaseController extends Controller
             if ($item->purchase()->exists()) {
                 abort(409);
             }
-            
+
             Purchase::create([
                 'user_id' => $user->id,
                 'item_id' => $item->id,

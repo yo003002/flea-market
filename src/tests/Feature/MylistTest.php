@@ -24,7 +24,9 @@ class MylistTest extends TestCase
     // ログインユーザーのみいいねした商品がマイリストに表示
     public function test_logged_in_user_can_view_mylist_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $this->actingAs($user);
 
@@ -66,7 +68,9 @@ class MylistTest extends TestCase
     // いいねした商品の購入済み商品にsold表示
     public function test_sold_item_in_mylist_shows_sold_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create([

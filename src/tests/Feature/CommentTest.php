@@ -22,7 +22,9 @@ class CommentTest extends TestCase
     public function test_user_can_post_comment_and_comment_is_displayed()
     {
         // ログイン
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();
@@ -32,7 +34,7 @@ class CommentTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('comment_icon.png');
         $response->assertSee('コメント(0)');
-        
+
         $commentText = 'テストコメント';
 
         $this->post("/items/{$item->id}/comment", [
@@ -81,15 +83,17 @@ class CommentTest extends TestCase
     // コメントが未入力→エラーメッセージ
     public function test_comment_validation_error_when_empty()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();
 
         $response = $this->from("/items/{$item->id}")
-                         ->post("/items/{$item->id}/comment", [
+                        ->post("/items/{$item->id}/comment", [
                             'comment' => '',
-                         ]);
+                        ]);
 
         $response->assertRedirect("/items/{$item->id}");
         $response->assertSessionHasErrors([
@@ -109,7 +113,9 @@ class CommentTest extends TestCase
     // コメントが２５５字以上の時エラーメッセージ
     public function test_comment_validation_error_when_comment_exceeds_255_characters()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();
@@ -117,9 +123,9 @@ class CommentTest extends TestCase
         $longComment = str_repeat('あ', 256);
 
         $response = $this->from("/items/{$item->id}")
-                         ->post("/items/{$item->id}/comment", [
+                        ->post("/items/{$item->id}/comment", [
                             'comment' => $longComment,
-                         ]);
+                        ]);
 
         $response->assertRedirect("/items/{$item->id}");
 

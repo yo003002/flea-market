@@ -33,6 +33,7 @@ class ProfileTest extends TestCase
         $user = User::factory()->create([
             'name' => 'テストユーザー',
             'profile_image' => $imagePath,
+            'email_verified_at' => now(),
         ]);
 
         $this->actingAs($user);
@@ -52,7 +53,9 @@ class ProfileTest extends TestCase
         $imagePath = 'items/test.png';
         Storage::disk('public')->put($imagePath, 'dummy');
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $item = Item::factory()->create([
             'user_id' => $user->id,
@@ -87,7 +90,9 @@ class ProfileTest extends TestCase
         $imagePath = 'items/test.png';
         Storage::disk('public')->put($imagePath, 'dummy');
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $item = Item::factory()->create([
             'title' => '購入した商品',

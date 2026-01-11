@@ -22,7 +22,9 @@ class AddressChangeTest extends TestCase
 
     public function test_user_can_update_address_and_see_updated_address_on_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $address = Address::factory()->create([
@@ -63,7 +65,9 @@ class AddressChangeTest extends TestCase
     // 変更した住所で購入した時に、購入した商品に変更後の住所が紐づいているか
     public function test_purchase_users_updated_address()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $address = Address::factory()->create([
@@ -87,7 +91,8 @@ class AddressChangeTest extends TestCase
 
         session(['pay_method' => 'convenience']);
 
-        $this->get("/purchase/{$item->id}/success")->assertRedirect('/');
+        $this->get("/purchase/{$item->id}/success")
+            ->assertRedirect('/');
 
         $this->assertDatabaseHas('purchases', [
             'user_id' => $user->id,

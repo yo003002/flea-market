@@ -32,6 +32,7 @@ class ChangeProfileTest extends TestCase
         $user = User::factory()->create([
             'name' => '太郎',
             'profile_image' => $imagePath,
+            'email_verified_at' => now(),
         ]);
 
         $address = Address::factory()->create([
@@ -45,6 +46,8 @@ class ChangeProfileTest extends TestCase
 
         $response = $this->get('/mypage/profile');
 
+        $response->assertStatus(200);
+
         $response->assertSee('storage/' . $imagePath);
 
         $response->assertSee('value="太郎"', false);
@@ -54,7 +57,5 @@ class ChangeProfileTest extends TestCase
         $response->assertSee('value="新潟県新潟市"', false);
 
         $response->assertSee('value="マンション"', false);
-
-
     }
 }

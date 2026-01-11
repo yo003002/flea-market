@@ -17,6 +17,7 @@ use Laravel\Fortify\Contracts\LoginResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\LoginRequest;
+use Laravel\Fortify\Contracts\VerifyEmailResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -53,7 +54,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(10)->by($email . $request->ip());
         });
-        
+
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
 
 
@@ -68,6 +69,14 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
+        // メール認証完了後のリダイレクト先をプロフィール設定画面へ
+        $this->app->singleton(VerifyEmailResponse::class, function () {
+            return new class implements VerifyEmailResponse {
+                public function toResponse($request)
+                {
+                    return redirect('/mypage/profile');
+                }
+            };
+        });
     }
-
 }

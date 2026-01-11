@@ -73,7 +73,9 @@ class ItemTest extends TestCase
     // ログインしたユーザーの商品一覧が自分の商品が出てこないこと
     public function test_logged_in_user_does_not_see_their_own_items()
     {
-        $userA = User::factory()->create();
+        $userA = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $myItem = Item::factory()->create([
             'title' => '自分の商品',
@@ -85,7 +87,9 @@ class ItemTest extends TestCase
             'image_path' => 'myItem.png',
         ]);
 
-        $userB = User::factory()->create();
+        $userB = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $otherItem = Item::factory()->create([
             'title' => '他人の商品',

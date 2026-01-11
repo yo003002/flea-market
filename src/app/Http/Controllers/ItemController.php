@@ -11,7 +11,6 @@ use App\Models\Category;
 use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
-use App\Models\Mylist;
 use App\Models\Purchase;
 
 
@@ -55,7 +54,6 @@ class ItemController extends Controller
             if (!empty($keyword)) {
                 $mylistQuery->where('title', 'like', '%' . $keyword . '%');
             }
-        
             $mylistItems = $mylistQuery->get();
         }
 
@@ -84,9 +82,7 @@ class ItemController extends Controller
     public function store(ExhibitionRequest $request)
     {
 
-        
         $price = preg_replace('/[^\d]/', '', $request->price);
-
 
         //商品情報の保存
         $item = new Item();
@@ -99,17 +95,15 @@ class ItemController extends Controller
         $item->status = 'selling';
         $item->save();
 
-
-
-        
         if (!empty($request->category_ids)) {
             $item->categories()->attach($request->category_ids);
         }
 
+
         //複数画像の保存
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                
+
                 $path = $image->store('item_images', 'public');
 
                 ItemImage::create([

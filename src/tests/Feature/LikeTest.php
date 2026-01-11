@@ -22,7 +22,9 @@ class LikeTest extends TestCase
     // ログインユーザーがいいねアイコン押す→いいね商品として登録→いいねカウント増加
     public function test_user_can_like_an_item()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();
@@ -42,7 +44,9 @@ class LikeTest extends TestCase
     // 追加済みのいいねのアイコンは色が変化
     public function test_likes_icon_changes_color_after_liking()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();
@@ -66,7 +70,9 @@ class LikeTest extends TestCase
     // いいね追加→再度いいね押す→いいねが解除されてカウントも減少
     public function test_user_can_toggle_like_on_item()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create();

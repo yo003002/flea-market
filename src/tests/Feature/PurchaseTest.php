@@ -28,7 +28,9 @@ class PurchaseTest extends TestCase
     // ログイン→商品購入画面→購入ボタン→stripe決済→購入完了
     public function test_user_can_purchase_item_from_purchase_page_to_success()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $address = Address::factory()->create([
@@ -79,7 +81,9 @@ class PurchaseTest extends TestCase
     // 購入商品にsold表示
     public function test_purchased_item_shows_sold_label()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create([
@@ -106,7 +110,9 @@ class PurchaseTest extends TestCase
     // 購入した商品がプロフィールの購入商品一覧に追加
     public function test_purchase_item_is_listed_in_user_profile_buy_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
         $item = Item::factory()->create([

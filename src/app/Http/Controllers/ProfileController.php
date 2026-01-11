@@ -12,7 +12,6 @@ use App\Models\Category;
 use App\Models\ItemImage;
 use App\Models\ItemCategory;
 use App\Models\Like;
-use App\Models\Mylist;
 use App\Models\Purchase;
 
 class ProfileController extends Controller
@@ -112,7 +111,7 @@ class ProfileController extends Controller
 
 
         $user = auth()->user();
-    
+
 
         $user->name = $request->name;
 

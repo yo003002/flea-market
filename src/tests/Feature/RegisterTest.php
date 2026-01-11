@@ -38,7 +38,7 @@ class RegisterTest extends TestCase
         $response->assertSee('お名前を入力してください');
     }
 
-    
+
     // メールが未入力のバリデーション
     public function test_email_is_required()
     {
@@ -59,7 +59,7 @@ class RegisterTest extends TestCase
         $response->assertSee('メールアドレスを入力してください');
     }
 
-    
+
     // パスワードが未入力のバリデーション
     public function test_password_is_required()
     {
