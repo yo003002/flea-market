@@ -1,12 +1,12 @@
 <!-- プロフィール画面　/mypage -->
- @extends('layouts.app')
- 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/profile/index.css') }}">
- @endsection
+@extends('layouts.app')
 
- @section('content')
- <div class="mypage-content">
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/profile/index.css') }}">
+@endsection
+
+@section('content')
+<div class="mypage-content">
     <div class="mypage-profile">
 
         <div class="mypage-profile__img">
@@ -33,6 +33,6 @@
             <a href="/mypage?page=buy">購入した商品</a>
         </div>
     </div>
- </div>
+</div>
 
- @endsection
+@endsection

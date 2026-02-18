@@ -108,10 +108,7 @@ class ProfileController extends Controller
     // プロフィール編集
     public function update(ProfileRequest $request)
     {
-
-
         $user = auth()->user();
-
 
         $user->name = $request->name;
 

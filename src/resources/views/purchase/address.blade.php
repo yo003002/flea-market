@@ -1,12 +1,12 @@
 <!-- 送付先住所変更画面  /purchase/{item_id}/address -->
- @extends('layouts.app')
+@extends('layouts.app')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/purchase/address.css') }}">
- @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/purchase/address.css') }}">
+@endsection
 
- @section('content')
- <div class="address-content">
+@section('content')
+<div class="address-content">
     <div class="address-header">
         <h1>住所の変更</h1>
     </div>
@@ -52,5 +52,5 @@
             <button class="address-form__button-submit" type="submit">更新する</button>
         </div>
     </form>
- </div>
- @endsection
+</div>
+@endsection

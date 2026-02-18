@@ -91,10 +91,10 @@
             <button class="edit-form__update-btn-submit" type="submit">更新する</button>
         </div>
     </form>
- </div>
- @endsection
+</div>
+@endsection
 
- @push('scripts')
+@push('scripts')
 <script>
 document.getElementById('profile_image').addEventListener('change', function(e) {
 
@@ -110,7 +110,7 @@ document.getElementById('profile_image').addEventListener('change', function(e) 
     reader.onload = function(event) {
         const img = document.createElement('img');
         img.src = event.target.result;
-        img.classList.add('preview-image'); // CSSでサイズ調整
+        img.classList.add('preview-image');
         preview.appendChild(img);
     };
 

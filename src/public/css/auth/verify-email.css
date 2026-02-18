@@ -19,7 +19,7 @@
     text-align: center;
 }
 
-.verify-form__button {
+.verify-resend p{
     margin: 0;
     box-sizing: border-box;
     width: 100%;
@@ -30,7 +30,6 @@
     font-weight: bold;
     font-size: 15px;
     background: #d9d9d9;
-    cursor: pointer;
 }
 
 
@@ -40,7 +39,7 @@
     margin: 40px auto;
 }
 
-.resend-massage p {
+.verify-form__button {
     text-decoration: none;
     font-size: 13px;
     width: 100%;
@@ -48,6 +47,7 @@
     color: #0073cc;
     background: #fff;
     border: none;
+    cursor: pointer;
 }
 
 

@@ -44,7 +44,7 @@ Project directory "/var/www/." is not empty.
  
 `composer config --global audit.block-insecure false`
 
-## Laravel のパッケージのインストール
+## パッケージのインストール
 ```
 composer install
 ```

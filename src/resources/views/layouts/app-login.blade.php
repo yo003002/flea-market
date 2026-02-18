@@ -14,7 +14,7 @@
             <a class="header__logo" href="/"><img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="COΛCHTECH"></a>
         </div>
     </header>
-    
+
     <main>
         @yield('content')
     </main>

@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
- <div class="mypage-content">
+<div class="mypage-content">
     <div class="mypage-profile">
 
         <div class="mypage-profile__img">
@@ -63,6 +63,5 @@
             @endif
         </div>
     </div>
-    
 </div>
 @endsection

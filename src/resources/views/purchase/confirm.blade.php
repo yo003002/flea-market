@@ -114,5 +114,5 @@
             display.textContent = payMethodLabels[selectedValue] || '未選択';
         });
     });
- </script>
- @endpush
+</script>
+@endpush

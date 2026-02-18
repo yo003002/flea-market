@@ -4,13 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Comment;
 
 class CommentSeeder extends Seeder
 {
-    
+
     /**
      * Run the database seeds.
      *
@@ -18,17 +19,17 @@ class CommentSeeder extends Seeder
      */
     public function run()
     {
-        \Log::info('CommentSeeder start');
+        Log::info('CommentSeeder start');
         //
         $items = Item::all();
         $users = User::all();
 
         foreach ($items as $item) {
-            
-            $otherUsers = $users->where('id', '!=', $item->user_id); 
+
+            $otherUsers = $users->where('id', '!=', $item->user_id);
 
             if ($otherUsers->isEmpty()) {
-                 continue; 
+                continue;
             }
 
             // 各商品に必ず１件以上
@@ -43,6 +44,6 @@ class CommentSeeder extends Seeder
                 ]);
             }
         }
-        \Log::info('CommentSeeder end');
+        Log::info('CommentSeeder end');
     }
 }

@@ -1,13 +1,13 @@
 <!-- 商品詳細画面  /items/{item_id} -->
 
- @extends('layouts.app')
+@extends('layouts.app')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
- @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
+@endsection
 
- @section('content')
- <div class="show-content">
+@section('content')
+<div class="show-content">
     <div class="show-content__item">
 
         <!-- 商品画像 -->
@@ -36,7 +36,7 @@
 
                 <div class="item-detail__heart-comment">
                     <div class="item-detail__heart">
-                        <form action="{{ route('items.like', 
+                        <form action="{{ route('items.like',
                         ['item_id' => $item->id]) }}" method="post">
                             @csrf
                             <button class="item-detail__heart-btn" type="submit">
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                             <div class="comment-body">
-                               {{ $comment->comment  }}
+                                {{ $comment->comment  }}
                             </div>
                         </div>
                     @endforeach
@@ -159,5 +159,5 @@
             </div>
         </div>
     </div>
- </div>
- @endsection
+</div>
+@endsection

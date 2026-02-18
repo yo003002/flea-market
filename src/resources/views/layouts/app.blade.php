@@ -20,8 +20,8 @@
                         <li class="header-nav__item-search">
                             <form action="{{ route('items.index') }}" method="GET" class="form">
                                 <input type="hidden" name="tab" value="{{ request('tab') }}">
-                                <input 
-                                class="header-nav__search-input" type="text" 
+                                <input
+                                class="header-nav__search-input" type="text"
                                 name="keyword"
                                 placeholder="何をお探しですか？"
                                 value="{{ request('keyword') }}">
@@ -50,7 +50,6 @@
                         </li>
                     </ul>
                 </nav>
-                
             </div>
         </div>
     </header>

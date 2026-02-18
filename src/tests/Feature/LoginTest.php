@@ -37,7 +37,7 @@ class LoginTest extends TestCase
 
 
     // パスワードが未入力のバリデーション
-    public function test_passwird_is_required_for_login()
+    public function test_password_is_required_for_login()
     {
         $response = $this->get('/login');
         $response->assertStatus(200);

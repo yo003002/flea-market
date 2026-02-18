@@ -1,12 +1,12 @@
 <!-- 商品出品画面  /sell -->
- @extends('layouts.app')
+@extends('layouts.app')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('css/items/create.css') }}">
- @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/items/create.css') }}">
+@endsection
 
- @section('content')
- <div class="sell-content">
+@section('content')
+<div class="sell-content">
     <div class="sell-item__title">
         <h1>商品の出品</h1>
     </div>
@@ -14,7 +14,7 @@
         @csrf
         <div class="sell-item__img-title">
             <p>商品画像</p>
-        </div> 
+        </div>
 
         <div class="sell-item__img-select-btn">
             <label for="images" class="sell-item-label">画像を選択する</label>
@@ -41,11 +41,11 @@
         <div class="sell-item__category">
             <p>
                 @foreach($categories as $category)
-                    <input 
-                    class="category-checkbox" 
-                    type="checkbox" 
-                    id="category{{ $category->id }}" 
-                    name="category_ids[]" 
+                    <input
+                    class="category-checkbox"
+                    type="checkbox"
+                    id="category{{ $category->id }}"
+                    name="category_ids[]"
                     value="{{ $category->id }}"
                     {{ in_array($category->id, old('category_ids', [])) ? 'checked' : '' }}>
                     <label class="category-label" for="category{{ $category->id }}">{{ $category->name }}</label>
@@ -127,12 +127,12 @@
             <button class="sell-item__btn-submit" type="submit">出品する</button>
         </div>
     </form>
- </div>
- @endsection
+</div>
+@endsection
 
- @push('scripts')
+@push('scripts')
 
- <!-- 自動で￥を付ける -->
+<!-- 自動で￥を付ける -->
 <script>
     const priceInput = document.getElementById('price');
 
@@ -145,7 +145,7 @@
     });
 
     priceInput.addEventListener('input', function (event) {
-        
+
         let raw = event.target.value.replace(/[^\d０-９]/g, '');
 
         if (raw === '') {
@@ -169,10 +169,10 @@
 </script>
 
 <!-- 選択した画像ファイルを表示 -->
- <script>
+<script>
     document.getElementById('images').addEventListener('change', function(event) {
         const previewArea = document.getElementById('preview-area');
-        previewArea.innerHTML = ""; 
+        previewArea.innerHTML = "";
 
         const files = event.target.files;
 
@@ -188,5 +188,5 @@
             reader.readAsDataURL(file);
         });
     });
- </script>
- @endpush
+</script>
+@endpush
