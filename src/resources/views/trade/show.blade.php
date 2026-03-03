@@ -9,10 +9,11 @@
     <div class="left">
         <div>
             <p>その他の取引</p>
+            todo 今は自分の出品商品だけ。購入商品も表示させる。購入者も表示させる。
             @if(auth()->id() === $purchase->item->user_id)
                 @foreach($otherPurchases as $other)
                     <div class="other-trade-item">
-                        <p>{{ $other->item->title }}</p>
+                        <a href="{{ route('trade.show', $other->id) }}">{{ $other->item->title }}</a>
                     </div>
                 @endforeach
             @endif
@@ -30,12 +31,45 @@
                 </div>
                 <div class="header-text">「{{ $otherUser->name }}」さんとの取引画面</div>
             </div>
-            @if(auth()->id() === $purchase->user_id)
-                <div class="trade-button">
-                    <button class="trade-button-inner">取引を完了する</button>
-                </div>
+            @if(!$isSeller)
+                <form action="{{ route('trade.complete', $purchase) }}" method="post" class="trade-button-form">
+                    @csrf
+                    @method('PATCH')
+                    <div class="trade-button">
+                        <button type="submit" class="trade-button-inner">取引を完了する</button>
+                    </div>
+                </form>
             @endif
         </div>
+        @if($shouldShowModal)
+            <div class="modal">
+                <div class="modal-inner">
+                    <div class="modal-title">
+                        <p>取引が完了しました。</p>
+                    </div>
+                    <form action="{{ route('reviews.store') }}" method="post">
+                        @csrf
+                        <div class="modal-star">
+                            <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
+                            <input type="hidden" name="reviewed_id" value="{{ $otherUser->id }}">
+                            <input type="hidden" name="rating" id="rating-value">
+                            <div class="star-text">
+                                <p>今回の取引相手はどうでしたか？</p>
+                            </div>
+                            <div class="modal-star-inner">
+                                @for($i = 5; $i >= 1; $i--)
+                                    <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}">
+                                    <label for="star{{ $i }}">★</label>
+                                @endfor
+                            </div>
+                        </div>
+                        <div class="modal-button">
+                            <button type="submit" class="modal-button-inner">送信する</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
 
         {{-- 商品 --}}
         <div class="item">

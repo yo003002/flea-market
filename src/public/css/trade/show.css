@@ -17,6 +17,23 @@
     margin-top: 10px;
 }
 
+.other-trade-item {
+    text-align: center;
+    text-decoration: none;
+    height: 30px;
+}
+
+.other-trade-item a {
+    line-height: 30px;
+    display: inline-block;
+    width: 80%;
+    text-decoration: none;
+    color: #000000;
+    background-color: #eeefeb;
+    border: none;
+    border-radius: 5px;
+}
+
 
 /* 右半分 */
 .right {
@@ -59,6 +76,22 @@
     font-weight: bold;
 }
 
+.trade-button-form {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.trade-button-inner {
+    padding: 10px;
+    background: #ff8282;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
 /* 商品 */
 .item {
     display: flex;
@@ -80,7 +113,7 @@
 .item-name {
     font-size: 30px;
     font-weight: bold;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
 }
 
 .item-price {
@@ -206,11 +239,12 @@
 .image-label {
     border: 1.5px solid #ff5555;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 5px 20px;
     height: 40px;
     cursor: pointer;
     color: #ff5555;
     font-weight: bold;
+    font-size: 16px;
     margin: 0 10px;
 }
 
@@ -234,6 +268,100 @@
     background: #ffffff;
     color: #5f5f5f;
     text-shadow: 0 4px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* モーダル */
+.modal {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modal-inner {
+    width: 400px;
+    height: 250px;
+    background: #fdfce6;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #000000;
+    padding: 0;
+}
+
+.modal-title {
+    border-bottom: 1px solid #000000;
+    height: 20%;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+/* 星 */
+.modal-star {
+    border-bottom: 1px solid #000000;
+    height: 60%
+}
+
+.star-text {
+    color: #868686;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.star-text p{
+    margin: 7px 0;
+}
+
+.modal-star-inner {
+    direction: rtl;
+    font-size: 60px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.modal-star-inner input {
+    display: none;
+}
+
+.modal-star-inner label {
+    color: #D9D9D9;
+    cursor: pointer;
+}
+
+.modal-star-inner input:checked ~ label {
+    color: #FFF048;
+}
+
+.modal-star-inner label:hover,
+.modal-star-inner label:hover ~ label{
+    color: #FFF048;
+}
+
+.modal-button {
+    height: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.modal-button-inner {
+    background: #ff8282;
+    padding: 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
     cursor: pointer;
 }
 

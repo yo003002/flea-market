@@ -30,6 +30,23 @@
     width: 100%;
 }
 
+.mypage-profile__name h2 {
+    margin-bottom: 0;
+}
+
+.star-display {
+    font-size: 35px;
+}
+
+.star {
+    color: #D9D9D9;
+}
+
+.star.filled {
+    color: #FFF048;
+}
+
+
 /* プロフィール編集ボタン */
 .mypage-profile__btn {
     display: flex;

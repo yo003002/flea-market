@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TradeController;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -69,4 +70,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // メッセージ削除
     Route::delete('/trade/message/{message}', [TradeController::class, 'destroy'])->name('trade.destroy');
+
+    // 取引完了
+    Route::patch('/trade/{purchase}/complete', [TradeController::class, 'complete'])->name('trade.complete');
+
+    // 星評価
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TradeRequest;
 use App\Models\Purchase;
 use App\Models\TradeMessage;
+use App\Models\Review;
 
 class TradeController extends Controller
 {
@@ -38,7 +39,17 @@ class TradeController extends Controller
             return $message;
         });
 
-        return view('trade.show', compact('purchase', 'isSeller', 'otherPurchases', 'otherUser', 'messages'));
+        $hasReviewed = Review::where('purchase_id', $purchase->id)
+            ->where('reviewer_id', auth()->id())
+            ->exists();
+
+        $shouldShowModal = false;
+
+        if ($purchase->status === 'completed' && !$hasReviewed) {
+            $shouldShowModal = true;
+        }
+
+        return view('trade.show', compact('purchase', 'isSeller', 'otherPurchases', 'otherUser', 'messages', 'shouldShowModal'));
     }
 
     public function store(TradeRequest $request, Purchase $purchase)
@@ -77,6 +88,20 @@ class TradeController extends Controller
         $purchase = $message->purchase;
 
         $message->delete();
+
+        return redirect()->route('trade.show', $purchase);
+    }
+
+    // 取引完了
+    public function complete(Purchase $purchase)
+    {
+        if ($purchase->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $purchase->update([
+            'status' => 'completed',
+        ]);
 
         return redirect()->route('trade.show', $purchase);
     }

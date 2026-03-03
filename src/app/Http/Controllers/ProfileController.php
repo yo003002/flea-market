@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
+use App\Models\Review;
+use App\Models\TradeMessage;
 
 class ProfileController extends Controller
 {
@@ -19,6 +21,25 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
+
+        $userId = auth()->id();
+
+        $unreadCount = TradeMessage::whereHas('purchase', function ($query) use ($userId) {
+            $query->where('status', 'trading')
+                ->where(function ($q) use ($userId) {
+                    $q->where('user_id', $userId)
+                        ->orWhereHas('item', function ($qq) use ($userId) {
+                            $qq->where('user_id', $userId);
+                        });
+                });
+        })
+        ->where('user_id', '!=', $userId)
+        ->where('is_read', false)
+        ->count();
+
+        $averageRating = Review::where('reviewed_id', $userId)->avg('rating') ?? 0;
+        $reviewCount = Review::where('reviewed_id', $userId)->count();
+
         //出品一覧
         if ($request->query('page') === 'sell') {
 
@@ -27,7 +48,7 @@ class ProfileController extends Controller
                 ->latest()
                 ->get();
 
-                return view('profile.sell', compact('items'));
+                return view('profile.sell', compact('items', 'averageRating', 'reviewCount','unreadCount'));
         }
 
         //購入した商品
@@ -38,7 +59,7 @@ class ProfileController extends Controller
                 ->latest()
                 ->get();
 
-            return view('profile.buy', compact('purchases'));
+            return view('profile.buy', compact('purchases', 'averageRating', 'reviewCount','unreadCount'));
         }
 
         // 取引中の商品
@@ -55,10 +76,10 @@ class ProfileController extends Controller
                 })
                 ->latest()
                 ->get();
-            return view('profile.trade', compact('trades'));
+            return view('profile.trade', compact('trades', 'averageRating', 'reviewCount','unreadCount'));
         }
 
-        return view('profile.index');
+        return view('profile.index', compact('averageRating', 'reviewCount','unreadCount'));
     }
 
     /**

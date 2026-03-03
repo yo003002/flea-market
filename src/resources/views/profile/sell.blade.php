@@ -19,6 +19,19 @@
         </div>
         <div class="mypage-profile__name">
             <h2> {{ Auth::user()->name }}</h2>
+            @if($reviewCount > 0)
+                <div class="mypage-rating">
+                    <div class="star-display">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($averageRating >= $i)
+                                <span class="star filled">★</span>
+                            @else
+                                <span class="star">★</span>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="mypage-profile__btn">
