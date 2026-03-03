@@ -49,6 +49,11 @@ class TradeController extends Controller
             $shouldShowModal = true;
         }
 
+        TradeMessage::where('purchase_id', $purchase->id)
+            ->where('user_id', '!=', auth()->id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
         return view('trade.show', compact('purchase', 'isSeller', 'otherPurchases', 'otherUser', 'messages', 'shouldShowModal'));
     }
 

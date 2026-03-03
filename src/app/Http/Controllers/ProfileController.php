@@ -66,7 +66,7 @@ class ProfileController extends Controller
         if ($request->query('page') === 'trade') {
             $userId = auth()->id();
 
-            $trades = Purchase::with('item.images')
+            $trades = Purchase::with(['item.images', 'messages'])
                 ->where('status', 'trading')
                 ->where(function ($query) use ($userId) {
                     $query->where('user_id', $userId)
@@ -74,7 +74,14 @@ class ProfileController extends Controller
                             $q->where('user_id', $userId);
                         });
                 })
-                ->latest()
+                ->withCount([
+                    'messages as unread_count' => function ($query) use ($userId) {
+                        $query->where('user_id', '!=', $userId)
+                            ->where('is_read', false);
+                    }
+                ])
+                ->withMax('messages', 'created_at')
+                ->orderByDesc('messages_max_created_at')
                 ->get();
             return view('profile.trade', compact('trades', 'averageRating', 'reviewCount','unreadCount'));
         }

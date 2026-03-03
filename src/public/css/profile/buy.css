@@ -93,6 +93,16 @@
     margin-right: 50px;
 }
 
+.notification-badge {
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 40%;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+    padding: 0 5px;
+}
 
 
 /* 出品リスト */
@@ -118,7 +128,7 @@
 .sold-item-card p {
     margin-top: 0;
     font-weight: bold;
-} 
+}
 
 /* 画像 */
 .sold-item-card img {
@@ -142,14 +152,11 @@
     left: -40px;
     width: 160px;
     text-align: center;
-
     background: red;
     color: #fff;
     font-weight: bold;
     font-size: 20px;
     padding: 6px 0;
-
     transform: rotate(-45deg);
     z-index: 10;
-
 }

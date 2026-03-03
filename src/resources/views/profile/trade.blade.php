@@ -46,6 +46,9 @@
         </div>
         <div class="mypage-trade-item">
             <a href="/mypage?page=trade">取引中の商品</a>
+            @if($unreadCount > 0)
+                <span class="notification-badge">{{ $unreadCount }}</span>
+            @endif
         </div>
     </div>
 
@@ -59,11 +62,17 @@
                         <li class="trade-item-card">
                             <a href="{{ route('trade.show', $trade->id) }}">
 
-                                @if($trade->item->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $trade->item->images->first()->image_path) }}" alt="">
-                                @else
-                                    <p>No Image</p>
-                                @endif
+                                <div class="trade-card-image">
+                                    @if($trade->unread_count > 0)
+                                        <span class="card-badge">{{ $trade->unread_count }}</span>
+                                    @endif
+
+                                    @if($trade->item->images->isNotEmpty())
+                                        <img src="{{ asset('storage/' . $trade->item->images->first()->image_path) }}" alt="">
+                                    @else
+                                        <p>No Image</p>
+                                    @endif
+                                </div>
 
                                 <p>{{ $trade->item->title }}</p>
                             </a>

@@ -48,6 +48,9 @@
         </div>
         <div class="mypage-trade-item">
             <a href="/mypage?page=trade">取引中の商品</a>
+            @if($unreadCount > 0)
+                <span class="notification-badge">{{ $unreadCount }}</span>
+            @endif
         </div>
     </div>
 
