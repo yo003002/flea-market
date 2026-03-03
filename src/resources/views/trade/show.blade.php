@@ -91,10 +91,18 @@
                             @endif
                         </div>
                     </div>
+                @if($message->isMe)
+                    <form action="{{ route('trade.destroy', $message) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                            <button type="submit" class="delete-button">削除</button>
+                    </form>
+                @endif
                 </div>
             @empty
                 <p>まだメッセージはありません</p>
             @endforelse
+
         </div>
 
         <div class="form__error">

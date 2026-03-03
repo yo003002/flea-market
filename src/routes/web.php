@@ -66,4 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 取引
     Route::get('/trade/{purchase}', [TradeController::class, 'show'])->name('trade.show');
     Route::post('/trade/{purchase}/message', [TradeController::class, 'store'])->name('trade.store');
+
+    // メッセージ削除
+    Route::delete('/trade/message/{message}', [TradeController::class, 'destroy'])->name('trade.destroy');
 });

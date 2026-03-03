@@ -66,4 +66,18 @@ class TradeController extends Controller
 
         return redirect()->route('trade.show', $purchase);
     }
+
+    // メッセージ削除
+    public function destroy(TradeMessage $message)
+    {
+        if ($message->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $purchase = $message->purchase;
+
+        $message->delete();
+
+        return redirect()->route('trade.show', $purchase);
+    }
 }
