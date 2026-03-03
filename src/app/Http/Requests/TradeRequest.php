@@ -13,7 +13,7 @@ class TradeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class TradeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'message' => 'required|string|max:400',
+            'image' => 'nullable|mimes:png,jpeg,jpg'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'message.required' => '本文を入力してください',
+            'message.max' => '本文は400文字以内で入力してください',
+            'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
         ];
     }
 }

@@ -96,6 +96,15 @@
                 <p>まだメッセージはありません</p>
             @endforelse
         </div>
+
+        <div class="form__error">
+            @error('message')
+            {{ $message }}
+            @enderror
+            @error('images')
+            {{ $message }}
+            @enderror
+        </div>
         <form action="{{ route('trade.store', $purchase->id) }}" method="post" enctype="multipart/form-data" class="input">
         @csrf
             <input type="text" name="message" placeholder="取引メッセージを記入してください" class="input-item"></input>

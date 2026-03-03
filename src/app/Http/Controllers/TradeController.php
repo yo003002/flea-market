@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TradeRequest;
 use App\Models\Purchase;
 use App\Models\TradeMessage;
 
@@ -41,7 +41,7 @@ class TradeController extends Controller
         return view('trade.show', compact('purchase', 'isSeller', 'otherPurchases', 'otherUser', 'messages'));
     }
 
-    public function store(Request $request, Purchase $purchase)
+    public function store(TradeRequest $request, Purchase $purchase)
     {
         if (
             $purchase->user_id !== auth()->id() &&
@@ -49,12 +49,6 @@ class TradeController extends Controller
         ) {
             abort(403);
         }
-
-        // todo　リクエスト作成時に消す
-        $request->validate([
-            'message' => 'required|string|max:1000',
-            'image' => 'nullable|image|max:2048',
-        ]);
 
         $imagePath = null;
 
