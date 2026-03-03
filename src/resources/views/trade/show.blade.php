@@ -118,20 +118,31 @@
                         @endif
                         <div class="{{ $message->isMe ? 'my-message-bubble' : 'other-message-bubble' }}">
                             @if($message->message)
-                                {{ $message->message }}
+                                <div class="message-text" id="message-text-{{ $message->id }}">
+                                    {{ $message->message }}
+                                </div>
                             @endif
                             @if($message->image_path)
                                 <img src="{{ asset('storage/' . $message->image_path) }}"  class="{{ $message->isMe ? 'my-message-image' : 'other-message-image' }}" alt="送信画像">
                             @endif
                         </div>
                     </div>
-                @if($message->isMe)
-                    <form action="{{ route('trade.destroy', $message) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                            <button type="submit" class="delete-button">削除</button>
-                    </form>
-                @endif
+                    <div class="button-flex">
+                        <div class="button-inner">
+                            @if($message->isMe)
+                                <button class="update-button" data-id="{{ $message->id }}">編集</button>
+                            @endif
+                        </div>
+                        <div class="button-inner">
+                            @if($message->isMe)
+                                <form action="{{ route('trade.destroy', $message) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="delete-button">削除</button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             @empty
                 <p>まだメッセージはありません</p>
@@ -159,3 +170,57 @@
     </div>
 </div>
 @endsection
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelectorAll(".update-button").forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            const messageId = this.dataset.id;
+            const messageDiv = document.getElementById("message-text-" + messageId);
+            const originalText = messageDiv.innerText;
+
+            messageDiv.innerHTML = `
+                <textarea id="edit-area-${messageId}" rows="3">${originalText}</textarea>
+                <button onclick="saveMessage(${messageId})">保存</button>
+                <button onclick="cancelEdit(${messageId}, '${originalText}')">キャンセル</button>
+            `;
+        });
+    });
+});
+
+// 保存
+function saveMessage(messageId) {
+
+    const textarea = document.getElementById("edit-area-" + messageId);
+    const newMessage = textarea.value;
+
+    fetch(`/trade/message/${messageId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({
+            message: newMessage
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        const messageDiv = document.getElementById("message-text-" + messageId);
+        messageDiv.innerHTML = data.message + ' <span class="edited-label"></span>';
+
+    })
+    .catch(error => console.error(error));
+}
+
+// キャンセル
+function cancelEdit(messageId, originalText) {
+
+    const messageDiv = document.getElementById("message-text-" + messageId);
+    messageDiv.innerHTML = originalText;
+}
+</script>

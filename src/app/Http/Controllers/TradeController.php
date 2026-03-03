@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\TradeRequest;
 use App\Models\Purchase;
 use App\Models\TradeMessage;
@@ -95,6 +96,26 @@ class TradeController extends Controller
         $message->delete();
 
         return redirect()->route('trade.show', $purchase);
+    }
+
+    // メッセージ編集
+    public function update(Request $request, TradeMessage $message)
+    {
+        if ($message->user_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $request->validate([
+            'message' => 'required|string|max:400',
+        ]);
+
+        $message->update([
+            'message' => $request->message,
+        ]);
+
+        return response()->json([
+            'message' => $message->message
+        ]);
     }
 
     // 取引完了

@@ -71,6 +71,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // メッセージ削除
     Route::delete('/trade/message/{message}', [TradeController::class, 'destroy'])->name('trade.destroy');
 
+    // メッセージ編集
+    Route::put('trade/message/{message}', [TradeController::class, 'update'])->name('trade.update');
+
     // 取引完了
     Route::patch('/trade/{purchase}/complete', [TradeController::class, 'complete'])->name('trade.complete');
 
