@@ -4,19 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use App\Models\Purchase;
 use App\Models\User;
 
-class Address extends Model
+class TradeMessage extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'user_id',
-        'postal_code',
-        'address',
-        'name',
-        'building',
+        'message',
+        'image_path'
     ];
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
 
     public function user()
     {

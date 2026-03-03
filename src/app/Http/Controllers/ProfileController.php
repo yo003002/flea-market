@@ -6,13 +6,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 
 use Illuminate\Http\Request;
-use App\Models\Address;
 use App\Models\Item;
-use App\Models\Category;
-use App\Models\ItemImage;
-use App\Models\ItemCategory;
-use App\Models\Like;
 use App\Models\Purchase;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -43,6 +39,23 @@ class ProfileController extends Controller
                 ->get();
 
             return view('profile.buy', compact('purchases'));
+        }
+
+        // 取引中の商品
+        if ($request->query('page') === 'trade') {
+            $userId = auth()->id();
+
+            $trades = Purchase::with('item.images')
+                ->where('status', 'trading')
+                ->where(function ($query) use ($userId) {
+                    $query->where('user_id', $userId)
+                        ->orWhereHas('item', function ($q) use ($userId) {
+                            $q->where('user_id', $userId);
+                        });
+                })
+                ->latest()
+                ->get();
+            return view('profile.trade', compact('trades'));
         }
 
         return view('profile.index');
@@ -108,6 +121,7 @@ class ProfileController extends Controller
     // プロフィール編集
     public function update(ProfileRequest $request)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
 
         $user->name = $request->name;

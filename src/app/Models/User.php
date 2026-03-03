@@ -9,13 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Item;
 use App\Models\Address;
-use App\Models\Category;
-use App\Models\ItemImage;
-use App\Models\ItemCategory;
 use App\Models\Like;
-use App\Models\Mylist;
-use App\Models\Purchase;
-use App\Models\Comment;
+use App\Models\TradeMessage;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -68,8 +63,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likedItems()
     {
         return $this->belongsToMany(Item::class, 'likes')
-                    ->withTimestamps() 
+                    ->withTimestamps()
                     ->withPivot('is_favorite');
+    }
+
+    public function tradeMessages()
+    {
+        return $this->hasMany(TradeMessage::class);
     }
 
     // 画像が無くてもログイン時トップへ。プロフィール編集に飛ばない。

@@ -33,6 +33,9 @@
         <div class="mypage-sold-item">
             <a href="/mypage?page=buy">購入した商品</a>
         </div>
+        <div class="mypage-trade-item">
+            <a href="/mypage?page=trade">取引中の商品</a>
+        </div>
     </div>
 
     <div class="sold-itm-content">

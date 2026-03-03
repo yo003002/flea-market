@@ -57,7 +57,8 @@
 }
 
 .mypage-sell-item a,
-.mypage-sold-item a {
+.mypage-sold-item a,
+.mypage-trade-item a {
     text-decoration: none;
     cursor: pointer;
     color: #5f5f5f;
@@ -65,11 +66,13 @@
 }
 
 .mypage-sell-item:hover a,
-.mypage-sold-item:hover a {
+.mypage-sold-item:hover a,
+.mypage-trade-item:hover a {
     color: #ff0000;
 }
 
-.mypage-sell-item {
+.mypage-sell-item,
+.mypage-sold-item {
     margin-right: 50px;
 }
 
@@ -84,7 +87,7 @@
 }
 
 .sold-item-card {
-    width: calc(25% - 20px);
+    width: calc(25% - 40px);
     list-style: none;
     position: relative;
     overflow: hidden; /* はみ出した部分をカット */

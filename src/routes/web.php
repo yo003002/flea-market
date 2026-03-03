@@ -7,6 +7,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TradeController;
 
 
 /*
@@ -21,14 +22,8 @@ use App\Http\Controllers\CommentController;
 */
 
 
-
-
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
-
-
-
-
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -67,4 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/purchase/address/{item_id}',
     [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+
+    // 取引
+    Route::get('/trade/{purchase}', [TradeController::class, 'show'])->name('trade.show');
+    Route::post('/trade/{purchase}/message', [TradeController::class, 'store'])->name('trade.store');
 });

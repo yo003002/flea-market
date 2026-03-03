@@ -1,8 +1,7 @@
-<!-- プロフィール画面　/mypage -->
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile/trade.css') }}">
 @endsection
 
 @section('content')
@@ -36,6 +35,30 @@
             <a href="/mypage?page=trade">取引中の商品</a>
         </div>
     </div>
-</div>
 
+    <div class="trade-itm-content">
+        <div class="trade-item">
+            @if($trades->isEmpty())
+                <p>取引中の商品はありません</p>
+            @else
+                <ul class="trade-item-list">
+                    @foreach($trades as $trade)
+                        <li class="trade-item-card">
+                            <a href="{{ route('trade.show', $trade->id) }}">
+
+                                @if($trade->item->images->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $trade->item->images->first()->image_path) }}" alt="">
+                                @else
+                                    <p>No Image</p>
+                                @endif
+
+                                <p>{{ $trade->item->title }}</p>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
+</div>
 @endsection

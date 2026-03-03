@@ -6,12 +6,10 @@ use App\Http\Requests\ExhibitionRequest;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\Address;
 use App\Models\Category;
 use App\Models\ItemImage;
-use App\Models\ItemCategory;
-use App\Models\Like;
 use App\Models\Purchase;
+use App\Models\User;
 
 
 class ItemController extends Controller
@@ -46,7 +44,10 @@ class ItemController extends Controller
         $mylistItems = collect();
 
         if ($tab === 'mylist' && auth()->check()) {
-            $mylistQuery = auth()->user()
+            /** @var User $user */
+            $user = auth()->user();
+
+            $mylistQuery = $user
                 ->likedItems()
                 ->wherePivot('is_favorite', true)
                 ->with('images');

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -11,11 +10,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 
 use App\Models\Address;
-use App\Models\Category;
 use App\Models\Item;
-use App\Models\ItemImage;
-use App\Models\ItemCategory;
-use App\Models\Like;
 use App\Models\Purchase;
 
 class PurchaseController extends Controller
@@ -156,6 +151,7 @@ class PurchaseController extends Controller
                 'item_id' => $item->id,
                 'address_id' => $address->id,
                 'pay_method' => session('pay_method'),
+                'status' => 'trading',
             ]);
 
             $item->update([

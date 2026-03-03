@@ -1,8 +1,3 @@
-.sell-item-content {
-    display: flex;
-    height: calc(100vh - 62px);
-}
-
 /* プロフィール */
 .mypage-profile {
     margin: 20px auto;
@@ -11,7 +6,6 @@
     align-items: center;
     width: 60%;
 }
-
 
 /* プロフィール画像 */
 .mypage-profile__img {
@@ -34,7 +28,6 @@
     height: 100%;
     width: 100%;
 }
-
 
 
 /* プロフィール編集ボタン */
@@ -84,34 +77,34 @@
 }
 
 
-/* 出品リスト */
+/* 取引リスト */
 
-.sell-item-list {
+.trade-item-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.sell-item-card {
+.trade-item-card {
     width: calc(25% - 40px);
     list-style: none;
     position: relative;
     overflow: hidden; /* はみ出した部分をカット */
 }
 
-.sell-item-card a {
+.trade-item-card a {
     text-decoration: none;
     color: #000;
 }
 
-.sell-item-card p {
+.trade-item-card p {
     margin-top: 0;
     font-weight: bold;
 }
 
 
 /* 画像 */
-.sell-item-card img {
+.trade-item-card img {
     width: 100%;
     aspect-ratio: 1 / 1; /* サイズを正方形に揃える */
     object-fit: cover; /* 画像が伸びる・潰れる対策 */
@@ -120,21 +113,6 @@
 
 
 /* マウスを乗せた時に 1.03 倍に “ふわっ” と拡大 */
-.sell-item-card:hover {
+.trade-item-card:hover {
     transform: scale(1.03);
-}
-
-.sold-badge {
-    position: absolute;
-    top: 16px;
-    left: -40px;
-    width: 160px;
-    text-align: center;
-    background: red;
-    color: #fff;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 6px 0;
-    transform: rotate(-45deg);
-    z-index: 10;
 }
