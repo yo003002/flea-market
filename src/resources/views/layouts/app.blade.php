@@ -28,26 +28,28 @@
                             </form>
                         </li>
 
-                        @auth
-                        <li class="header-nav__item">
-                            <form  action="/logout" method="post">
-                                @csrf
-                                <button class="header-nav__button">ログアウト</button>
-                            </form>
-                        </li>
-                        @endauth
+                        <div class="nav-buttons">
+                            @auth
+                            <li class="header-nav__item">
+                                <form  action="/logout" method="post">
+                                    @csrf
+                                    <button class="header-nav__button">ログアウト</button>
+                                </form>
+                            </li>
+                            @endauth
 
-                        @guest
-                        <li class="header-nav__item">
-                            <a href="/login" class="header-nav__link">ログイン</a>
-                        </li>
-                        @endguest
-                        <li class="header-nav__item">
-                            <a class="header-nav__link" href="/mypage">マイページ</a>
-                        </li>
-                        <li class="header-nav__item">
-                            <a href="/sell" class="header-nav__link-exhibit">出品</a>
-                        </li>
+                            @guest
+                            <li class="header-nav__item">
+                                <a href="/login" class="header-nav__link">ログイン</a>
+                            </li>
+                            @endguest
+                            <li class="header-nav__item">
+                                <a class="header-nav__link" href="/mypage">マイページ</a>
+                            </li>
+                            <li class="header-nav__item">
+                                <a href="/sell" class="header-nav__link-exhibit">出品</a>
+                            </li>
+                        </div>
                     </ul>
                 </nav>
             </div>

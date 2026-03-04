@@ -145,7 +145,6 @@ class ItemSeeder extends Seeder
 
                     if (file_exists($imagePath)) {
 
-                        
                         $filename = uniqid() . '_' . $data['image'];
 
                         Storage::disk('public')->put(
@@ -163,6 +162,5 @@ class ItemSeeder extends Seeder
                     dd($e->getMessage(), $e->getFile(), $e->getLine());
                 }
             }
-        
     }
 }
