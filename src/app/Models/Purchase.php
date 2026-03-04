@@ -34,4 +34,9 @@ class Purchase extends Model
     {
         return $this->hasMany(TradeMessage::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

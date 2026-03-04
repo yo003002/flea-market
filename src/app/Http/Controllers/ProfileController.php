@@ -67,7 +67,18 @@ class ProfileController extends Controller
             $userId = auth()->id();
 
             $trades = Purchase::with(['item.images', 'messages'])
-                ->where('status', 'trading')
+                ->where(function ($query) use ($userId) {
+                    $query->where('status', 'trading')
+                        ->orWhere(function($q) use ($userId) {
+                            $q->where('status', 'completed')
+                            ->whereHas('item', function ($itemQuery) use ($userId) {
+                                $itemQuery->where('user_id', $userId);
+                            })
+                            ->whereDoesntHave('reviews', function ($reviewQuery) use ($userId) {
+                                $reviewQuery->where('reviewer_id', $userId);
+                            });
+                        });
+                })
                 ->where(function ($query) use ($userId) {
                     $query->where('user_id', $userId)
                         ->orWhereHas('item', function ($q) use ($userId) {
@@ -176,7 +187,7 @@ class ProfileController extends Controller
             ]
             );
 
-            return redirect('/mypage');
+            return redirect()->route('profile.index');
     }
 
     /**

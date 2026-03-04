@@ -115,7 +115,7 @@ class ItemController extends Controller
 
         }
 
-        return redirect('/mypage');
+        return redirect()->route('profile.index');
     }
 
     /**

@@ -23,15 +23,35 @@ class TradeController extends Controller
 
         $isSeller = auth()->id() === $purchase->item->user_id;
 
-        $otherPurchases = [];
-        if ($isSeller) {
-            $otherPurchases = Purchase::where('item_id', '!=', $purchase->item_id)
-                ->whereHas('item', function($query) {
-                    $query->where('user_id', auth()->id());
-                })
-                ->with('item')
-                ->get();
-        }
+        $otherPurchases = Purchase::where('id', '!=', $purchase->id)
+            ->where(function($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereHas('item', function($q) {
+                        $q->where('user_id', auth()->id());
+                    });
+            })
+            ->with('item')
+            ->get()
+            ->filter(function($other) {
+                if ($other->status === 'trading') {
+                    return true;
+                }
+
+                $isBuyer = $other->user_id === auth()->id();
+                $isSeller = $other->item->user_id === auth()->id();
+
+                if ($isBuyer) {
+                    return false;
+                }
+
+                if ($isSeller) {
+                    $hasReviewed = Review::where('purchase_id', $other->id)
+                        ->where('reviewer_id', auth()->id())
+                        ->exists();
+                    return !$hasReviewed;
+                }
+                return false;
+            });
 
         $otherUser = auth()->id() === $purchase->user_id ? $purchase->item->user : $purchase->user;
 
@@ -99,7 +119,7 @@ class TradeController extends Controller
     }
 
     // メッセージ編集
-    public function update(Request $request, TradeMessage $message)
+    public function update(TradeRequest $request, TradeMessage $message)
     {
         if ($message->user_id !== auth()->id()) {
             return response()->json(['error' => 'Unauthorized'], 403);

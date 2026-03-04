@@ -54,7 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
 
     //プロフィール
-    Route::get('/mypage', [ProfileController::class, 'index']);
+    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/mypage/sell', [ProfileController::class, 'sold']);
 
     //住所変更

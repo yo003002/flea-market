@@ -16,6 +16,6 @@ class ReviewController extends Controller
             'rating' => $request->rating,
         ]);
 
-        return redirect()->route('trade.show', $request->purchase_id);
+        return redirect()->route('profile.index');
     }
 }

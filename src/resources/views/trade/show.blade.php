@@ -9,14 +9,13 @@
     <div class="left">
         <div>
             <p>その他の取引</p>
-            todo 今は自分の出品商品だけ。購入商品も表示させる。購入者も表示させる。
-            @if(auth()->id() === $purchase->item->user_id)
-                @foreach($otherPurchases as $other)
-                    <div class="other-trade-item">
-                        <a href="{{ route('trade.show', $other->id) }}">{{ $other->item->title }}</a>
-                    </div>
-                @endforeach
-            @endif
+
+            @foreach($otherPurchases as $other)
+                <div class="other-trade-item">
+                    <a href="{{ route('trade.show', $other->id) }}">{{ $other->item->title }}</a>
+                </div>
+            @endforeach
+
         </div>
     </div>
     <div class="right">
@@ -36,6 +35,7 @@
                     @csrf
                     @method('PATCH')
                     <div class="trade-button">
+                    todo 取引完了後、ボタンを押せなくする。
                         <button type="submit" class="trade-button-inner">取引を完了する</button>
                     </div>
                 </form>
@@ -160,7 +160,7 @@
         </div>
         <form action="{{ route('trade.store', $purchase->id) }}" method="post" enctype="multipart/form-data" class="input">
         @csrf
-            <input type="text" name="message" placeholder="取引メッセージを記入してください" class="input-item"></input>
+            <input type="text" name="message" id="message-input" placeholder="取引メッセージを記入してください" class="input-item"></input>
 
             <label for="image" class="image-label">画像を追加</label>
             <input type="file" id="image" accept="image/*" name="image" class="image-input">
@@ -180,13 +180,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const messageId = this.dataset.id;
             const messageDiv = document.getElementById("message-text-" + messageId);
-            const originalText = messageDiv.innerText;
+            const originalText = messageDiv.textContent.trim();
 
-            messageDiv.innerHTML = `
-                <textarea id="edit-area-${messageId}" rows="3">${originalText}</textarea>
-                <button onclick="saveMessage(${messageId})">保存</button>
-                <button onclick="cancelEdit(${messageId}, '${originalText}')">キャンセル</button>
-            `;
+            messageDiv.textContent = "";
+
+            const textarea = document.createElement("textarea");
+            textarea.id = "edit-area-" + messageId;
+            textarea.rows = 3;
+            textarea.value = originalText;
+            textarea.classList.add("edit-textarea");
+
+            const saveBtn = document.createElement("button");
+            saveBtn.textContent = "保存";
+            saveBtn.addEventListener("click", function() {
+                saveMessage(messageId);
+            });
+            saveBtn.classList.add("edit-btn");
+
+            const cancelBtn = document.createElement("button");
+            cancelBtn.textContent = "キャンセル";
+            cancelBtn.addEventListener("click", function() {
+                cancelEdit(messageId, originalText);
+            });
+            cancelBtn.classList.add("edit-btn");
+
+            messageDiv.appendChild(textarea);
+            messageDiv.appendChild(saveBtn);
+            messageDiv.appendChild(cancelBtn);
         });
     });
 });
@@ -201,26 +221,72 @@ function saveMessage(messageId) {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            "Accept": "application/json"
         },
         body: JSON.stringify({
             message: newMessage
         })
     })
-    .then(response => response.json())
+    .then(async response => {
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw errorData;
+        }
+        return response.json();
+    })
     .then(data => {
 
         const messageDiv = document.getElementById("message-text-" + messageId);
-        messageDiv.innerHTML = data.message + ' <span class="edited-label"></span>';
+        messageDiv.textContent = data.message;
 
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+        if(error.errors && error.errors.message) {
+            showError(messageId, error.errors.message[0]);
+        }
+    });
 }
 
 // キャンセル
 function cancelEdit(messageId, originalText) {
 
     const messageDiv = document.getElementById("message-text-" + messageId);
-    messageDiv.innerHTML = originalText;
+    messageDiv.textContent = originalText;
 }
+
+// エラー(TradeRequest適用)
+function showError(messageId, errorMessage) {
+    const messageDiv = document.getElementById("message-text-" + messageId);
+
+    const oldError = messageDiv.querySelector(".form__error");
+    if (oldError) oldError.remove();
+
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "form__error";
+    errorDiv.textContent = errorMessage;
+
+    messageDiv.insertBefore(errorDiv, messageDiv.firstChild);
+}
+
+// メッセージ入力保持
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.getElementById("message-input");
+    const storagekey = "trade_message_{{ $purchase->id }}";
+
+    if (!input) return;
+
+    if (localStorage.getItem(storagekey)) {
+        input.value = localStorage.getItem(storagekey);
+    }
+
+    input.addEventListener("input", function() {
+        localStorage.setItem(storagekey, input.value);
+    });
+
+    const form = input.closest("form");
+    form.addEventListener("submit", function() {
+        localStorage.removeItem(storagekey);
+    });
+});
 </script>
