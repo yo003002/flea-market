@@ -37,8 +37,13 @@ class ProfileController extends Controller
         ->where('is_read', false)
         ->count();
 
-        $averageRating = Review::where('reviewed_id', $userId)->avg('rating') ?? 0;
-        $reviewCount = Review::where('reviewed_id', $userId)->count();
+        $reviewData = Review::where('reviewed_id', $userId)
+            ->selectRaw('COALESCE(AVG(rating), 0) as average, COUNT(*) as count')
+            ->first();
+
+        $averageRating = (float) $reviewData->average;
+        $reviewCount = (int) $reviewData->count;
+        $roundedRating = round($averageRating);
 
         //出品一覧
         if ($request->query('page') === 'sell') {
@@ -48,7 +53,7 @@ class ProfileController extends Controller
                 ->latest()
                 ->get();
 
-                return view('profile.sell', compact('items', 'averageRating', 'reviewCount','unreadCount'));
+                return view('profile.sell', compact('items', 'averageRating', 'reviewCount','unreadCount', 'roundedRating'));
         }
 
         //購入した商品
@@ -59,7 +64,7 @@ class ProfileController extends Controller
                 ->latest()
                 ->get();
 
-            return view('profile.buy', compact('purchases', 'averageRating', 'reviewCount','unreadCount'));
+            return view('profile.buy', compact('purchases', 'averageRating', 'reviewCount','unreadCount', 'roundedRating'));
         }
 
         // 取引中の商品
@@ -94,10 +99,10 @@ class ProfileController extends Controller
                 ->withMax('messages', 'created_at')
                 ->orderByDesc('messages_max_created_at')
                 ->get();
-            return view('profile.trade', compact('trades', 'averageRating', 'reviewCount','unreadCount'));
+            return view('profile.trade', compact('trades', 'averageRating', 'reviewCount','unreadCount', 'roundedRating'));
         }
 
-        return view('profile.index', compact('averageRating', 'reviewCount','unreadCount'));
+        return view('profile.index', compact('averageRating', 'reviewCount','unreadCount', 'roundedRating'));
     }
 
     /**

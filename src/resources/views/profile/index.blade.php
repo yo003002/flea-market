@@ -22,7 +22,7 @@
                 <div class="mypage-rating">
                     <div class="star-display">
                         @for($i = 1; $i <= 5; $i++)
-                            @if($averageRating >= $i)
+                            @if($roundedRating >= $i)
                                 <span class="star filled">★</span>
                             @else
                                 <span class="star">★</span>
