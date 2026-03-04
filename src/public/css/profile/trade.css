@@ -2,15 +2,16 @@
 .mypage-profile {
     margin: 20px auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    width: 60%;
+    width: 70%;
 }
 
 /* プロフィール画像 */
 .mypage-profile__img {
     height: 100px;
     width: 100px;
+    margin-right: 40px;
 }
 
 .mypage-profile__img img {
@@ -51,10 +52,10 @@
 .mypage-profile__btn {
     display: flex;
     align-items: center;
-    margin-left: 100px;
+    margin-left: 170px;
     border: 1.5px solid #ff5555;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 5px 20px;
     height: 40px;
 }
 
@@ -160,4 +161,10 @@
 /* マウスを乗せた時に 1.03 倍に “ふわっ” と拡大 */
 .trade-item-card:hover {
     transform: scale(1.03);
+}
+
+@media (max-width: 1024px) {
+    .mypage-profile {
+        width: 95%;
+    }
 }
