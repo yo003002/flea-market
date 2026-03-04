@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\TradeRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TradeCompletedMail;
 use App\Models\Purchase;
 use App\Models\TradeMessage;
 use App\Models\Review;
@@ -149,6 +151,11 @@ class TradeController extends Controller
             'status' => 'completed',
         ]);
 
-        return redirect()->route('trade.show', $purchase);
+        $seller = $purchase->item->user;
+
+        Mail::to($seller->email)
+            ->send(new TradeCompletedMail($purchase));
+
+        return redirect()->route('trade.show', $purchase->id);
     }
 }
