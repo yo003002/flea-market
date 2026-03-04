@@ -177,7 +177,7 @@
 
 .comment-user {
     height: 50px;
-    width: 50px;       
+    width: 50px;
 }
 
 .comment-user img {
@@ -272,7 +272,7 @@
 
 
 /* コメント送信ボタン */
-.item-detail__comment-btn { 
+.item-detail__comment-btn {
     margin: 20px 0;
     width: 100%;
     height: 40px;
@@ -306,3 +306,15 @@
     text-align: center;
     line-height: 40px;
 }
+
+@media (max-width: 1024px) {
+    .show-content__item {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+    .show-content__form {
+        width: 100%;
+    }
+}
+

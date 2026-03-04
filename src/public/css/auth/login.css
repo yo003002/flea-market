@@ -83,3 +83,8 @@
     cursor: pointer;
 }
 
+@media (max-width: 1024px) {
+    .form {
+        width: 60%;
+    }
+}

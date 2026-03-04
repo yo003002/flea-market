@@ -174,3 +174,25 @@
     cursor: pointer;
 }
 
+@media (max-width: 1024px) {
+    .purchase-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .purchase-content__left,
+    .purchase-content__right {
+        width: 100%;
+    }
+
+    .purchase-item__inner {
+        display: flex;
+        justify-content: center;
+    }
+
+    .purchase-item__img {
+        width: 200px;
+    }
+}
+
+
