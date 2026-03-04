@@ -35,8 +35,12 @@
                     @csrf
                     @method('PATCH')
                     <div class="trade-button">
-                    todo 取引完了後、ボタンを押せなくする。
-                        <button type="submit" class="trade-button-inner">取引を完了する</button>
+                        <button
+                            type="submit"
+                            class="trade-button-inner"
+                            {{ $purchase->status === 'completed' ? 'disabled' : '' }}>
+                            取引を完了する
+                        </button>
                     </div>
                 </form>
             @endif

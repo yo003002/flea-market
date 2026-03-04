@@ -147,7 +147,7 @@ php artisan migrate --env=testing
 - mysql from 11.8.3-MariaDB
 
 ## ER図
-- ![ER図](flea-market.png)
+- ![ER図](flea-market.png)　todo　ER図修正する
 
 ## URL
 - 開発環境　http://localhost/
