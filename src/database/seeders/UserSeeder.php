@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    todo ユーザーのダミーデータ３つ。１人は何も紐づけられていない。他２人は、１～５と６～１０の商品出品。
     public function run()
     {
         //
