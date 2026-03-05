@@ -146,3 +146,8 @@ php artisan migrate --env=testing
 
 ## URL
 - 開発環境　http://localhost/
+
+## ダミーデータ
+- 出品者A・・５つの商品を出品
+- 出品者B・・５つの商品を出品
+- 未出品ユーザー・・出品なし
