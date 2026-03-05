@@ -39,9 +39,9 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
+            CategorySeeder::class,
             UserSeeder::class,
             AddressSeeder::class,
-            CategorySeeder::class,
             ItemSeeder::class,
             LikeSeeder::class,
             CommentSeeder::class,

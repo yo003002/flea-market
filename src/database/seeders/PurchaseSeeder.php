@@ -27,20 +27,41 @@ class PurchaseSeeder extends Seeder
                 continue;
             }
 
-            $buyer = $users
-                ->where('id', '!=', $item->user_id)
-                ->random();
+            $buyerCandidates = $users->where('id', '!=', $item->user_id);
 
-            Purchase::create([
-                'user_id' => $buyer->id,
-                'item_id' => $item->id,
-                'address_id' => $buyer->address->id,
-                'pay_method' => collect(['credit_card', 'convenience'])->random(),
-            ]);
+            if ($buyerCandidates->isEmpty()) {
+                continue;
+            }
 
-            $item->update([
-                'status' => 'sold',
-            ]);
+            $buyer = $buyerCandidates->random();
+
+            Purchase::firstOrCreate(
+                [
+                    'user_id' => $buyer->id,
+                    'item_id' => $item->id,
+                ],
+                [
+                    'address_id' => $buyer->address->id,
+                    'pay_method' => collect(['credit_card', 'convenience'])->random(),
+                ]
+            );
+
+            if ($item->status !== 'sold') {
+                $item->update([
+                    'status' => 'sold',
+                ]);
+            }
+
+            // Purchase::create([
+            //     'user_id' => $buyer->id,
+            //     'item_id' => $item->id,
+            //     'address_id' => $buyer->address->id,
+            //     'pay_method' => collect(['credit_card', 'convenience'])->random(),
+            // ]);
+
+            // $item->update([
+            //     'status' => 'sold',
+            // ]);
         }
     }
 }

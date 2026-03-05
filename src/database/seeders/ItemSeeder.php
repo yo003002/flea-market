@@ -21,8 +21,9 @@ class ItemSeeder extends Seeder
 
     public function run()
     {
-        //
-        $users = User::all();
+
+        $sellerA = User::where('name', '出品者A')->first();
+        $sellerB = User::where('name', '出品者B')->first();
 
         $items = [
             [
@@ -117,50 +118,57 @@ class ItemSeeder extends Seeder
             ],
         ];
 
-        $shuffledItems = collect($items)->shuffle();
-        $max = min($users->count(), $shuffledItems->count());
 
-        foreach ($users->take($max) as $index => $user) {
 
-            $data = $shuffledItems[$index];
+    foreach ($items as $index => $data) {
 
-                try {
+        $user = $index < 5 ? $sellerA : $sellerB;
 
-                    $item = Item::create([
-                        'user_id' => $user->id,
-                        'title' => $data['title'],
-                        'price' => $data['price'],
-                        'brand_name' => $data['brand_name'],
-                        'description' => $data['description'],
-                        'condition' => $data['condition'],
-                        'status' => 'selling',
-                    ]);
+        $this->createItem($user, $data);
+        }
+    }
 
-                    // カテゴリー紐づけ
-                    $categoryIds = Category::whereIn('name', $data['categories'])->pluck('id');
-                    $item->categories()->syncWithoutDetaching($categoryIds);
+        private function createItem($user, $data)
+    {
+        try {
 
-                    // 画像コピー処理
-                    $imagePath = database_path('seeders/dummy_images/' . $data['image']);
+            $item = Item::create([
+                'user_id' => $user->id,
+                'title' => $data['title'],
+                'price' => $data['price'],
+                'brand_name' => $data['brand_name'],
+                'description' => $data['description'],
+                'condition' => $data['condition'],
+                'status' => 'selling',
+            ]);
 
-                    if (file_exists($imagePath)) {
 
-                        $filename = uniqid() . '_' . $data['image'];
+            $categoryIds = Category::whereIn('name', $data['categories'])->pluck('id');
+            $item->categories()->syncWithoutDetaching($categoryIds);
 
-                        Storage::disk('public')->put(
-                            'items/' . $filename,
-                            file_get_contents($imagePath)
-                        );
 
-                        ItemImage::create([
-                            'item_id' => $item->id,
-                            'image_path' => 'items/' . $filename,
-                        ]);
-                    }
+            $imagePath = database_path('seeders/dummy_images/' . $data['image']);
 
-                } catch (\Throwable $e) {
-                    dd($e->getMessage(), $e->getFile(), $e->getLine());
-                }
+            if (file_exists($imagePath)) {
+
+
+                $filename = uniqid() . '_' . $data['image'];
+
+                Storage::disk('public')->put(
+                    'items/' . $filename,
+                    file_get_contents($imagePath)
+                );
+
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'image_path' => 'items/' . $filename,
+                ]);
             }
+
+        } catch (\Throwable $e) {
+            dump($e->getMessage());
+        }
     }
 }
+
+

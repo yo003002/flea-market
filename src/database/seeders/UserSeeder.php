@@ -22,23 +22,28 @@ class UserSeeder extends Seeder
             '240_F_1378983632_gz7bV0PC1RwGNZBfwtWLUIA0gQoh6kXT.jpg',
         ];
 
-        User::factory(10)->create()->each(function ($user) use($images) {
+        $users = collect([
+            User::factory()->create(['name' => '出品者A']),
+            User::factory()->create(['name' => '出品者B']),
+            User::factory()->create(['name' => '未出品ユーザー']),
+        ]);
 
-            if (rand(1, 100) <= 70) {
-                $image = $images[array_rand($images)];
+        $users->each(function ($user) use($images) {
 
-                $from = database_path('seeders/dummy_images/users/' . $image);
+            $image = $images[array_rand($images)];
 
-                Storage::disk('public')->put(
-                    'users/' . $image,
-                    file_get_contents($from)
-                );
+            $from = database_path('seeders/dummy_images/users/' . $image);
 
-                $user->update([
-                    'profile_image' => 'users/' . $image,
-                    'is_profile_set' => true,
-                ]);
+            $to = storage_path('app/public/users/' . $image);
+
+            if (!file_exists($to)) {
+                copy($from, $to);
             }
+
+            $user->update([
+                'profile_image' => 'users/' . $image,
+                'is_profile_set' => true,
+            ]);
         });
     }
 }

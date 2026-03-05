@@ -19,7 +19,7 @@ class ItemFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(),
+            'user_id' => null,
             'title' => $this->faker->word(),
             'brand_name' => $this->faker->company(),
             'description' => $this->faker->sentence(10),
