@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
         $files = array_diff(scandir($sourceDir), ['.', '..']);
 
         foreach ($files as $file) {
+
+            if (str_contains($file, 'Zone.Identifier')) {
+                continue;
+            }
+
             if (!str_contains($file, '.jpg')) {
                 continue;
             }
