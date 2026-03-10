@@ -158,7 +158,7 @@
             @error('message')
             {{ $message }}
             @enderror
-            @error('images')
+            @error('image')
             {{ $message }}
             @enderror
         </div>
